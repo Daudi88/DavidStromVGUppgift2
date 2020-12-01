@@ -1,0 +1,34 @@
+﻿using System;
+
+namespace DavidStrömVGUppgift2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //1.Programmet skall vid uppstart fråga användaren om en kod. Om 
+            //denna kod är == med namnet på er basgrupp skall tillgång till 
+            //resten av programmet ges.Annars skall ett passande meddelande skrivas ut.
+
+            //2.Användaren skall få olika val presenterat i form av en meny.
+            //a.Lista alla deltagare i gruppen separerat med ,
+            //b.Få ut 10 generella detaljer om varje medlem.Tex favoritmat eller band.
+            //i.Varje deltagare skall ha en unik sträng som beskriver personens 
+            //största driv till programmering.
+            //c.Möjligheten att ta bort en person.
+            //3.Programmet skall versionshanteras och måste innehålla minst tre commits.
+            //4.Koden skall innehålla relevanta kommentarer
+
+            //5.Tillsammans med projektet skall en rapport lämnas in. Denna skall 
+            //innehålla en beskrivande text på hur ni tog ovan problem och bröt 
+            //ner det till mindre delar.Zippa ihop allt och döp mappen till ert 
+            //namn samt betygen ni siktar på för denna inläming.Tex RobinKamoVGUppgift2
+            //6.För betyget VG; Redogör mer ingående om programmet.Ex
+            //a.Varför valde du att göra som du gjorde?
+            //b.Kunde du gjort det på något annat sätt?
+            //c.För och nackdelarna med tillvägagångssättet?
+            //d.Varför valde du en for istället för en foreach?
+            //e.Hur tänkte du vid namngivning?
+        }
+    }
+}

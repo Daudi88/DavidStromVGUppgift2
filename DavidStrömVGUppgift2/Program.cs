@@ -7,21 +7,42 @@ namespace DavidStrömVGUppgift2
     class Program
     {
         static List<Member> group = new List<Member>();
+        static int time = 2000;
         static void Main(string[] args)
         {
-            PopulateGroup("Elin", 170, 31, "hästar", "sushi", "röd", "personliga utveckling", "Knivsta", "Karlskoga", 2);
-            PopulateGroup("Cecilia", 163, 29, "The Sims", "risotto", "gul", "kreativitet", "Norrköping", "Norrköping", 1);
-            PopulateGroup("Jeremy", 181, 19, "gaming", "älggryta", "teal", "att få ett jobb", "Djurö", "Köln", 1);
-            PopulateGroup("Sanjin", 179, 30, "fotboll", "pizza", "blå", "att få ett jobb", "Norrköping", "Mostar", 2);
-            PopulateGroup("Oscar", 185, 26, "fotboll", "lasagne", "blå", "att få ett jobb", "Stockholm", "Stockholm", 1);
-            PopulateGroup("Johan", 194, 34, "gaming", "tacos", "blå", "en trygg framtid", "Mariefred", "Mariefred", 2);
-            PopulateGroup("David", 183, 32, "BJJ", "tacos", "blå", "problemlösning", "Norrtälje", "Göteborg", 1);
+            Setup();
+        }
 
-            //1.Programmet skall vid uppstart fråga användaren om en kod. Om 
-            //denna kod är == med namnet på er basgrupp skall tillgång till 
-            //resten av programmet ges.Annars skall ett passande meddelande skrivas ut.
+        static void Setup()
+        {
+            PopulateGroup();
+            Login();
+            Menu();
+            Run();
+        }
 
-            int time = 2000;
+        static void PopulateGroup()
+        {
+            AddMember("Elin", 170, 31, "hästar", "sushi", "röd", "personliga utveckling", "Knivsta", "Karlskoga", 2);
+            AddMember("Cecilia", 163, 29, "The Sims", "risotto", "gul", "kreativitet", "Norrköping", "Norrköping", 1);
+            AddMember("Jeremy", 181, 19, "gaming", "älggryta", "teal", "att få ett jobb", "Djurö", "Köln", 1);
+            AddMember("Sanjin", 179, 30, "fotboll", "pizza", "blå", "att få ett jobb", "Norrköping", "Mostar", 2);
+            AddMember("Oscar", 185, 26, "fotboll", "lasagne", "blå", "att få ett jobb", "Stockholm", "Stockholm", 1);
+            AddMember("Johan", 194, 34, "gaming", "tacos", "blå", "en trygg framtid", "Mariefred", "Mariefred", 2);
+            AddMember("David", 183, 32, "BJJ", "tacos", "blå", "problemlösning", "Norrtälje", "Göteborg", 1);
+        }
+
+        static void AddMember(string name, int height, int age, string hobby, 
+            string favoriteFood, string favoriteColor, string motivation, 
+            string homeTown, string birthplace, int siblings)
+        {
+            var member = new Member(name, height, age, hobby, favoriteFood, 
+                favoriteColor, motivation, homeTown, birthplace, siblings);
+            group.Add(member);
+        }
+
+        static void Login()
+        {
             Console.WriteLine("Välkommen till programmet!");
             do
             {
@@ -29,91 +50,56 @@ namespace DavidStrömVGUppgift2
                 string password = Console.ReadLine();
                 if (password == "Bästkusten")
                 {
-                    Console.WriteLine("Korrekt! Du angav rätt kod!");
-                    Thread.Sleep(time);
-                    Console.Clear();
+                    WriteSomethingInGreen("Korrekt! Du angav rätt kod!");
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Fel kod! Försök igen...");
-                    Thread.Sleep(time);
+                    WriteSomethingInRed("Fel kod! Försök igen...");
                     Console.Clear();
-                } 
+                }
             } while (true);
+        }
 
-            //2.Användaren skall få olika val presenterat i form av en meny.
-            //a.Lista alla deltagare i gruppen separerat med ,
-            //b.Få ut 10 generella detaljer om varje medlem.Tex favoritmat eller band.
-            //i.Varje deltagare skall ha en unik sträng som beskriver personens 
-            //största driv till programmering.
-            //c.Möjligheten att ta bort en person.
+        static void Run()
+        {
             bool exit = false;
             do
             {
                 Menu();
-                int.TryParse(Console.ReadLine(), out int choice);
+                int choice = UserChoice();
                 switch (choice)
                 {
                     case 1:
-                        Console.Clear();
-                        Console.WriteLine("Här är alla medlemmar i Bästkusten:");
+                        NewScreen("Här är alla medlemmar i Bästkusten:");
                         ShowMembers();
                         Console.ReadKey(true);
                         break;
                     case 2:
-                        Console.Clear();
-                        Console.WriteLine("Vilken gruppmedlem vill du veta mer om?");
+                        NewScreen("Vilken gruppmedlem vill du veta mer om?");
                         ShowMembers(1);
                         choice = UserChoice();
                         Console.Clear();
-                        group[choice].Describe();
+                        group[choice - 1].Describe();
                         Console.ReadKey(true);
                         break;
                     case 3:
-                        Console.Clear();
-                        Console.WriteLine("Vilken gruppmedlem vill du ta bort?");
+                        NewScreen("Vilken gruppmedlem vill du ta bort?");
                         ShowMembers(1);
                         choice = UserChoice();
-                        Console.WriteLine("{0} är nu borttagen.", group[choice].Name);
-                        group.RemoveAt(choice);
+                        WriteSomethingInRed(string.Format("{0} är nu borttagen.", group[choice - 1].Name));
+                        group.RemoveAt(choice - 1);
                         Thread.Sleep(time);
                         break;
                     case 4:
-                        Console.WriteLine("Programmet avslutas.");
+                        WriteSomethingInRed("Programmet avslutas.");
                         exit = true;
-                        Thread.Sleep(time);
                         break;
                     default:
-                        Console.WriteLine("Du måste vålja mellan 1-4.");
-                        Thread.Sleep(time);
+                        WriteSomethingInRed("Du måste vålja mellan 1-4.");
                         break;
                 }
             } while (!exit);
-
-
-            //3.Programmet skall versionshanteras och måste innehålla minst tre commits.
-            //4.Koden skall innehålla relevanta kommentarer
-
-            //5.Tillsammans med projektet skall en rapport lämnas in. Denna skall 
-            //innehålla en beskrivande text på hur ni tog ovan problem och bröt 
-            //ner det till mindre delar.Zippa ihop allt och döp mappen till ert 
-            //namn samt betygen ni siktar på för denna inläming.Tex RobinKamoVGUppgift2
-            //6.För betyget VG; Redogör mer ingående om programmet.Ex
-            //a.Varför valde du att göra som du gjorde?
-            //b.Kunde du gjort det på något annat sätt?
-            //c.För och nackdelarna med tillvägagångssättet?
-            //d.Varför valde du en for istället för en foreach?
-            //e.Hur tänkte du vid namngivning?
-        }
-
-        static void PopulateGroup(string name, int height, int age, string hobby, 
-            string favoriteFood, string favoriteColor, string motivation, 
-            string homeTown, string birthplace, int siblings)
-        {
-            var member = new Member(name, height, age, hobby, favoriteFood, 
-                favoriteColor, motivation, homeTown, birthplace, siblings);
-            group.Add(member);
         }
 
         static void Menu()
@@ -148,8 +134,29 @@ namespace DavidStrömVGUppgift2
         static int UserChoice()
         {
             int.TryParse(Console.ReadLine(), out int choice);
-            choice--;
             return choice;
+        }
+
+        static void WriteSomethingInGreen(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Thread.Sleep(time);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        static void WriteSomethingInRed(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Thread.Sleep(time);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        static void NewScreen(string message)
+        {
+            Console.Clear();
+            Console.WriteLine(message);
         }
     }
 }

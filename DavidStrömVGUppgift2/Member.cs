@@ -34,11 +34,29 @@ namespace DavidStrömVGUppgift2
 
         public void Describe()
         {
-            Console.WriteLine("{0} är {1} år gammal, {2} cm lång och har {3} som hobby.", Name, Age, Height, Hobby);
-            Console.WriteLine("{0}s favoritkäk är {1} och favoritfärgen är {2}.", Name, FavoriteFood, FavoriteColor);
-            Console.WriteLine("{0}s motivation till programering är {1}.", Name, Motivation);
-            Console.WriteLine("{0} föddes i {1} och bor nu i {2}", Name, Birthplace, HomeTown);
-            Console.WriteLine("{0} har {1} syskon.", Name, Siblings);
+            Console.WriteLine("{0} är {1} år gammal, {2} cm lång och har {3} som hobby.",
+                Name, 
+                Age, 
+                Height, 
+                Hobby);
+
+            Console.WriteLine("{0}s favoritkäk är {1} och favoritfärgen är {2}.", 
+                Name, 
+                FavoriteFood, 
+                FavoriteColor);
+
+            Console.WriteLine("{0}s motivation till programering är {1}.", 
+                Name, 
+                Motivation);
+
+            Console.WriteLine("{0} föddes i {1} och bor nu i {2}.", 
+                Name, 
+                Birthplace, 
+                HomeTown);
+
+            Console.WriteLine("{0} har {1} syskon.", 
+                Name, 
+                Siblings);
         }
     }
 }

@@ -4,59 +4,73 @@ using System.Text;
 
 namespace DavidStrömVGUppgift2
 {
+    //Här är klassen Member som innehåller olika fält som varje gruppmedlem har.
     class Member
     {
-        public string Name { get; set; }
-        public int Height { get; set; }
-        public int Age { get; set; }
-        public string Hobby { get; set; }
-        public string FavoriteFood { get; set; }
-        public string FavoriteColor { get; set; }
-        public string Motivation { get; set; }
-        public string HomeTown { get; set; }
-        public string Birthplace { get; set; }
-        public int Siblings { get; set; }
-        public Member(string name, int height, int age, string hobby,
-            string favoriteFood, string favoriteColor, string motivation,
-            string homeTown, string birthplace, int siblings)
+        //Här är privata fält som hjälper till att beskriva varje gruppmedlem.
+        private string name;
+        private int height;
+        private int age;
+        private string hobby;
+        private string favoriteFood;
+        private string favoriteColor;
+        private string motivation;
+        private string homeTown;
+        private string birthplace;
+        private int siblings;
+        private string pronoun;
+
+        //Här är en tom konstruktor (även om den inte används som programmet 
+        //ser ut just nu kan det alltid vara bra att ha för framtiden).
+        public Member()
         {
-            Name = name;
-            Height = height;
-            Age = age;
-            Hobby = hobby;
-            FavoriteFood = favoriteFood;
-            FavoriteColor = favoriteColor;
-            Motivation = motivation;
-            HomeTown = homeTown;
-            Birthplace = birthplace;
-            Siblings = siblings;
+
         }
 
+        //Här är en konstruktor som låter oss skapa upp en ny gruppmedlem och 
+        //tilldela ett värde till varje privat fält på en och samma gång.
+        public Member(string name, int height, int age, string hobby, 
+            string favoriteFood, string favoriteColor, string motivation, 
+            string homeTown, string birthplace, int siblings, string pronoun)
+        {
+            this.name = name;
+            this.height = height;
+            this.age = age;
+            this.hobby = hobby;
+            this.favoriteFood = favoriteFood;
+            this.favoriteColor = favoriteColor;
+            this.motivation = motivation;
+            this.homeTown = homeTown;
+            this.birthplace = birthplace;
+            this.siblings = siblings;
+            this.pronoun = pronoun;
+        }
+
+        //Här är properties för de privata fälten name och favoriteColor som 
+        //låter oss läsa gruppmedlemmens namn och favoritfärg.
+        public string Name { get => name; }
+        public string FavoriteColor { get => favoriteColor; }
+
+        //Här är en metod som beskriver vem gruppmedlemmen är och skriver ut 
+        //detta till skärmen.
         public void Describe()
         {
-            Console.WriteLine("{0} är {1} år gammal, {2} cm lång och har {3} som hobby.",
-                Name, 
-                Age, 
-                Height, 
-                Hobby);
-
-            Console.WriteLine("{0}s favoritkäk är {1} och favoritfärgen är {2}.", 
-                Name, 
-                FavoriteFood, 
-                FavoriteColor);
-
-            Console.WriteLine("{0}s motivation till programering är {1}.", 
-                Name, 
-                Motivation);
-
-            Console.WriteLine("{0} föddes i {1} och bor nu i {2}.", 
-                Name, 
-                Birthplace, 
-                HomeTown);
-
-            Console.WriteLine("{0} har {1} syskon.", 
-                Name, 
-                Siblings);
+            Console.WriteLine($"Detta är {name}.");
+            Console.WriteLine($"{name} är {age} år gammal, {height} cm lång och " +
+                $"{pronoun} har {hobby} som hobby.");
+            Console.WriteLine($"När det kommer till favoriter har {name} {favoriteFood} " +
+                $"som favoriträtt och favoritfärgen är {favoriteColor}.");
+            Console.WriteLine($"Motivationen till programering för {Name} är " +
+                $"{motivation}.");
+            if (homeTown.EndsWith('ö'))
+                Console.WriteLine($"{name} föddes i {birthplace} och nu bor {pronoun} " +
+                $"på {homeTown}.");
+            else
+                Console.WriteLine($"{name} föddes i {birthplace} och nu bor {pronoun} " +
+                    $"i {homeTown}.");
+            Console.WriteLine($"Sista informationen om {name} är att {pronoun} har" +
+                $" {siblings} syskon.");
+            Console.Write("\nTryck på valfri tangent för att fortsätta...");
         }
     }
 }

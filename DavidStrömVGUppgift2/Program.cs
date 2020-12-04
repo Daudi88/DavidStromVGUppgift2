@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace DavidStrömVGUppgift2
@@ -9,6 +11,8 @@ namespace DavidStrömVGUppgift2
         //Här är de globala variablerna som ska vara tillgängliga för alla
         //metoder i progranmmet. På det här sättet slipper man skicka med 
         //dem som argument vid varje metodanrop.
+        static string filePath = @"C:\Code\.NET20D\Objektorienterad programmering i C#\Inlämningsuppgifter\DavidStrömVGUppgift2\members.txt";
+        static List<string> lines = new List<string>();
         static List<Member> group = new List<Member>();
         static int time = 2000;
         static bool exit = false;
@@ -23,42 +27,19 @@ namespace DavidStrömVGUppgift2
         //Här är en metod som sätter igång hela programmet.
         static void Start()
         {
-            PopulateGroup();
             Login();
             Run();
-        }
-
-        //Här är en metod som lägger till alla gruppmedlemmar i listan group.
-        static void PopulateGroup()
-        {
-            AddMember("Elin", 170, 31, "hästar", "sushi", "röd", "personliga utveckling", "Knivsta", "Karlskoga", 2, "hon");
-            AddMember("Cecilia", 163, 29, "The Sims", "risotto", "gul", "kreativitet", "Norrköping", "Norrköping", 1, "hon");
-            AddMember("Jeremy", 181, 19, "gaming", "älggryta", "teal", "att få ett jobb", "Djurö", "Köln", 1, "han");
-            AddMember("Sanjin", 179, 30, "fotboll", "pizza", "blå", "att få ett jobb", "Norrköping", "Mostar", 2, "han");
-            AddMember("Oscar", 185, 26, "fotboll", "lasagne", "blå", "att få ett jobb", "Stockholm", "Stockholm", 1, "han");
-            AddMember("Johan", 194, 34, "gaming", "tacos", "blå", "en trygg framtid", "Mariefred", "Mariefred", 2, "han");
-            AddMember("David", 183, 32, "BJJ", "tacos", "blå", "problemlösning", "Norrtälje", "Göteborg", 1, "han");
-            AddMember("Ivo", 174, 42, "fotografering", "scampi", "svart", "kreativitet", "Uppsala", "Split", 1, "han"); 
-        }
-
-        //Här är en metod som lägger till en gruppmedlem i listan group.
-        static void AddMember(string name, int height, int age, string hobby, 
-            string favoriteFood, string favoriteColor, string motivation, 
-            string homeTown, string birthplace, int siblings, string pronoun)
-        {
-            var member = new Member(name, height, age, hobby, favoriteFood, 
-                favoriteColor, motivation, homeTown, birthplace, siblings, pronoun);
-            group.Add(member);
         }
 
         //Detta är en metod som hanterar inloggningen till programmet.
         static void Login()
         {
+            int ctr = 0;
             do
             {
                 //Här körs en loop där varje tangenttryck registreras och läggs
                 //till i strängen password, men det som syns är bara asterisker.
-                string password = "";
+                string userInput = "";
                 Console.WriteLine("Välkommen till programmet!");
                 Console.Write("Ange lösenordet: ");
                 ConsoleKey key;
@@ -67,51 +48,51 @@ namespace DavidStrömVGUppgift2
                     //Varje knapptryck sparas i keyInfo men syns inte på skärmen.
                     ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                     key = keyInfo.Key;
-                    if (key == ConsoleKey.Backspace && password.Length > 0)
+                    if (key == ConsoleKey.Backspace && userInput.Length > 0)
                     {
                         //Om man trycker Backspace raderas asterisken från skärmen
                         //och tecknet som tidigare sparats i password tas bort.
                         Console.Write("\b \b");
-                        password = password[0..^1];
+                        userInput = userInput[0..^1];
                     }
                     else if (!char.IsControl(keyInfo.KeyChar))
                     {
                         //Här skrivs en asterisk ut till skärmen och knapptrycket
                         //sparas till password.
                         Console.Write("*");
-                        password += keyInfo.KeyChar;
+                        userInput += keyInfo.KeyChar;
                     }
-                //loopen körs så länge man inte trycker på Enter.
+                    //loopen körs så länge man inte trycker på Enter.
                 } while (key != ConsoleKey.Enter);
 
-                if (password == "Bästkusten")
+                string password = "Bästkusten";
+                if (userInput == password)
                 {
                     WriteSomethingInGreen("\nKorrekt! Du angav rätt kod!");
                     break;
                 }
                 else
                 {
-                    WriteSomethingInRed("\nFel kod! Försök igen...");
+                    ctr++;
+                    if (ctr > 2)
+                    {
+                        WriteSomethingInRed("\nDu har matat in fel lösenord för många gånger." +
+                            "\nDu måste vänta lite innan du försöker igen.");
+                        Thread.Sleep(time * 5);
+                        ctr = 0;
+                    }
+                    else
+                        WriteSomethingInRed("\nFel kod! Försök igen...");
                     Console.Clear();
                 }
             } while (true);
         }
 
-        //Här är en metod som skriver ut menyn till skärmen.
-        static void Menu()
-        {
-            Console.Clear();
-            Console.WriteLine("Vad vill du göra?");
-            Console.WriteLine("1. Lista alla deltagare i gruppen.");
-            Console.WriteLine("2. Veta mer om en specifik gruppmedlem.");
-            Console.WriteLine("3. Ta bort en person ur gruppen.");
-            Console.WriteLine("4. Avsluta programmet.");
-        }
-        
         //Här är en metod som styr hela programmet när man väl loggat in.
         //Metoden körs tills användaren väljer att avsluta.
         static void Run()
         {
+            PopulateGroup();
             do
             {
                 Menu();
@@ -127,10 +108,14 @@ namespace DavidStrömVGUppgift2
                         KnowMore();
                         break;
                     case 3:
+                        WriteSomethingInGreen("Du valde att lägga till en gruppmedlem.");
+                        CreateMember();
+                        break;
+                    case 4:
                         WriteSomethingInGreen("Du valde att ta bort en gruppmedlem.");
                         RemoveMember();
                         break;
-                    case 4:
+                    case 5:
                         WriteSomethingInGreen("Du valde att avsluta programmet.");
                         ExitProgram();
                         break;
@@ -139,6 +124,52 @@ namespace DavidStrömVGUppgift2
                         break;
                 }
             } while (!exit);
+        }
+
+        //Här är en metod som lägger till alla gruppmedlemmar i listan group.
+        static void PopulateGroup()
+        {
+            
+            lines = File.ReadAllLines(filePath).ToList();
+            for (int i = 0; i < lines.Count; i++)
+            {
+                string[] member = lines[i].Split(',');
+                string name = member[0];
+                int.TryParse(member[1], out int height);
+                int.TryParse(member[2], out int age);
+                string hobby = member[3];
+                string favoriteFood = member[4];
+                string favoriteColor = member[5];
+                string motivation = member[6];
+                string homeTown = member[7];
+                string birthplace = member[8];
+                int.TryParse(member[9], out int siblings);
+                string gender = member[10];
+                AddMember(name, height, age, hobby, favoriteFood, favoriteColor,
+                    motivation, homeTown, birthplace, siblings, gender);
+            }
+        }
+
+        //Här är en metod som lägger till en gruppmedlem i listan group.
+        static void AddMember(string name, int height, int age, string hobby, 
+            string favoriteFood, string favoriteColor, string motivation, 
+            string homeTown, string birthplace, int siblings, string gender)
+        {
+            var member = new Member(name, height, age, hobby, favoriteFood, 
+                favoriteColor, motivation, homeTown, birthplace, siblings, gender);
+            group.Add(member);
+        }
+
+        //Här är en metod som skriver ut menyn till skärmen.
+        static void Menu()
+        {
+            Console.Clear();
+            Console.WriteLine("Vad vill du göra?");
+            Console.WriteLine("1. Lista alla deltagare i gruppen.");
+            Console.WriteLine("2. Veta mer om en specifik gruppmedlem.");
+            Console.WriteLine("3. Lägg till en person i gruppen.");
+            Console.WriteLine("4. Ta bort en person ur gruppen.");
+            Console.WriteLine("5. Avsluta programmet.");
         }
 
         //Här är en metod som skriver ut alla gruppmedlemmar till skärmen.
@@ -188,7 +219,7 @@ namespace DavidStrömVGUppgift2
         {
             foreach (var member in group)
             {
-                Console.Write($"{ctr++}. {member.Name}");  
+                Console.WriteLine($"{ctr++}. {member.Name}");  
             }
         }
 
@@ -201,7 +232,7 @@ namespace DavidStrömVGUppgift2
                 Console.Clear();
                 Console.WriteLine("Vilken gruppmedlem vill du veta mer om?\n");
                 ShowMembers(1);
-                Console.Write("\nTryck bara Enter om du vill avbryta och återgå till menyn...");
+                Console.WriteLine("\nTryck bara Enter om du vill avbryta och återgå till menyn...");
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= group.Count)
                 {
@@ -209,7 +240,6 @@ namespace DavidStrömVGUppgift2
                     Console.Clear();
                     group[choice - 1].Describe();
                     Console.ReadKey(true);
-                    KnowMore();
                 }
                 //Om användaren matar in bokstäver eller bara trycker Enter 
                 //kommer UserChoice returnera 0 och då bryter vi oss ut ur loopen.
@@ -225,6 +255,55 @@ namespace DavidStrömVGUppgift2
             } while (true);
         }
 
+        
+        //Här är en metod som lägger till en gruppmedlem.
+        static void CreateMember()
+        {
+            Console.Clear();
+            Console.WriteLine("Du kommer nu få fylla i lite olika detaljer om " +
+                "den nya gruppmedlemmen.");
+            Console.Write("Namn: ");
+            string name = Console.ReadLine();
+            Console.Write("Längd: ");
+            int.TryParse(Console.ReadLine(), out int height);
+            Console.Write("Ålder: ");
+            int.TryParse(Console.ReadLine(), out int age);
+            Console.Write("Hobby: ");
+            string hobby = Console.ReadLine();
+            Console.Write("Favoriträtt: ");
+            string favoriteFood = Console.ReadLine();
+            Console.Write("Favoritfärg: ");
+            string favoriteColor = Console.ReadLine();
+            Console.Write("Motivation till programmering: ");
+            string motivation = Console.ReadLine();
+            Console.Write("Hemort: ");
+            string homeTown = Console.ReadLine();
+            Console.Write("Födelseort: ");
+            string birthplace = Console.ReadLine();
+            Console.Write("Syskon: ");
+            int.TryParse(Console.ReadLine(), out int siblings);
+            Console.Write("Kön: ");
+            string gender = Console.ReadLine();
+
+            name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
+            hobby = hobby.ToLower();
+            favoriteFood = favoriteFood.ToLower();
+            favoriteColor = favoriteColor.ToLower();
+            motivation = motivation.ToLower();
+            homeTown = char.ToUpper(homeTown[0]) + homeTown.Substring(1).ToLower();
+            birthplace = char.ToUpper(birthplace[0]) + birthplace.Substring(1).ToLower();
+            gender = gender.ToLower();
+
+            AddMember(name, height, age, hobby, favoriteFood, favoriteColor, 
+                motivation, homeTown, birthplace, siblings, gender);
+            string line = $"{name}, {height}, {age}, {hobby}, {favoriteFood}, {favoriteColor}, " +
+                $"{motivation}, {homeTown}, {birthplace}, {siblings}, {gender}";
+            lines.Add(line);
+            File.WriteAllLines(filePath, lines);
+            WriteSomethingInGreen($"{name} är nu tillagd.");
+            Thread.Sleep(time / 2);
+        }
+
         //Här är en metod som låter användaren ta bort en gruppmedlem.
         static void RemoveMember()
         {
@@ -233,12 +312,15 @@ namespace DavidStrömVGUppgift2
                 Console.Clear();
                 Console.WriteLine("Vilken gruppmedlem vill du ta bort?\n");
                 ShowMembers(1);
-                Console.Write("\nTryck bara Enter om du vill avbryta och återgå till menyn...");
+                Console.WriteLine("\nTryck bara Enter om du vill avbryta och återgå till menyn...");
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= group.Count)
                 {
-                    WriteSomethingInGreen(string.Format("{0} är nu borttagen.", group[choice - 1].Name));
-                    group.RemoveAt(choice - 1);
+                    choice--;
+                    WriteSomethingInGreen(string.Format("{0} är nu borttagen.", group[choice].Name));
+                    group.RemoveAt(choice);
+                    lines.RemoveAt(choice);
+                    File.WriteAllLines(filePath, lines);
                     break;
                 }
                 //Om användaren matar in bokstäver eller bara trycker Enter 
@@ -252,7 +334,7 @@ namespace DavidStrömVGUppgift2
                     WriteSomethingInRed($"\nDu måste ange en siffra mellan 1 och {group.Count}.");
                 }
             } while (true);
-            
+
         }
 
         //Här är en metod som avslutar programmet.

@@ -1,0 +1,8 @@
+Elin, 170, 31, hästar, sushi, röd, personliga utveckling, Knivsta, Karlskoga, 2, kvinna
+Cecilia, 163, 29, The Sims, risotto, gul, kreativitet, Norrköping, Norrköping, 1, kvinna
+Jeremy, 181, 19, gaming, älggryta, teal, att få ett jobb, Djurö, Köln, 1, man
+Sanjin, 179, 30, fotboll, pizza, blå, att få ett jobb, Norrköping, Mostar, 2, man
+Oscar, 185, 26, fotboll, lasagne, blå, att få ett jobb, Stockholm, Stockholm, 1, man
+Johan, 194, 34, gaming, tacos, blå, en trygg framtid, Mariefred, Mariefred, 2, man
+David, 183, 32, Gracie Jiu-Jitsu, tacos, blå, problemlösning, Norrtälje, Göteborg, 1, man
+Ivo, 174, 42, fotografering, scampi, svart, kreativitet, Uppsala, Split, 1, man

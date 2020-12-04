@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DavidStrömVGUppgift2
 {
@@ -19,6 +17,7 @@ namespace DavidStrömVGUppgift2
         private string birthplace;
         private int siblings;
         private string pronoun;
+        private string gender;
 
         //Här är en tom konstruktor (även om den inte används som programmet 
         //ser ut just nu kan det alltid vara bra att ha för framtiden).
@@ -31,7 +30,7 @@ namespace DavidStrömVGUppgift2
         //tilldela ett värde till varje privat fält på en och samma gång.
         public Member(string name, int height, int age, string hobby, 
             string favoriteFood, string favoriteColor, string motivation, 
-            string homeTown, string birthplace, int siblings, string pronoun)
+            string homeTown, string birthplace, int siblings, string gender)
         {
             this.name = name;
             this.height = height;
@@ -43,18 +42,23 @@ namespace DavidStrömVGUppgift2
             this.homeTown = homeTown;
             this.birthplace = birthplace;
             this.siblings = siblings;
-            this.pronoun = pronoun;
+            this.gender = gender;
         }
 
-        //Här är properties för de privata fälten name och favoriteColor som 
-        //låter oss läsa gruppmedlemmens namn och favoritfärg.
+        //Här är en property för det privata fältet name som 
+        //låter oss läsa gruppmedlemmens namn.
         public string Name { get => name; }
-        public string FavoriteColor { get => favoriteColor; }
 
         //Här är en metod som beskriver vem gruppmedlemmen är och skriver ut 
         //detta till skärmen.
         public void Describe()
         {
+            string pronoun = "";
+            if (gender == "man")
+                pronoun = "han";
+            else
+                pronoun = "hon";
+
             Console.WriteLine($"Detta är {name}.");
             Console.WriteLine($"{name} är {age} år gammal, {height} cm lång och " +
                 $"{pronoun} har {hobby} som hobby.");

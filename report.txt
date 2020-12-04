@@ -1,0 +1,138 @@
+Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Ström
+
+- Hur jag bröt ner problemet till mindre delar.
+    Som med alla uppgifter är det bra att bryta ned ett problem i mindre delar.
+    Jag utgick mer eller mindre från instruktionerna och gjorde punkt för punkt.
+    Vissa punkter gick även att dela in i ytterligare mindre delar. Jag började 
+    med inloggningsfunktionen för att sedan skapa menyn. Efter detta var gjort 
+    tog jag mig an att skapa en en klass som skulle fungera som en mall för 
+    varje medlem i basgruppen. När jag var klar med den skapade jag en lista
+    som innehöll verje medlem. Sedan kom jag fram till implementeringen av menyn.
+    Det vill säga det som ska ske när användaren gjort ett val från menyn. Detta
+    steg delade jag upp så att varje valmöjlighet blev en del. Sedan gick jag mer
+    eller mindre uppifrån och ned och tog menypunkt för menypunkt och skapade upp
+    implementeringen. Jag började med att skriva all kod i Main-metoden för att 
+    sedan undan för undan refoktorera koden in i olika metoder. Jag försökte hålla
+    mig till att varje metod bara skulle göra en sak vilket ledde till en hel del
+    olika metoder och jag hoppas att det blev tydligt och att jag inte gick overboard.
+
+- Inloggningsfunktionen
+    Jag började med att bara låta användaren skriva in ett lösenord för att 
+    sedan jämföra lösenordet med strängen "Bästkusten". Om strängarna var lika 
+    får användaren tillträde till programmet. Annars skrivs ett felmeddelande 
+    ut och användaren får försöka igen med hjälp av en do/while-loop. När jag 
+    var klar med det tyckte jag att det skulle vara kul att försöka göra så att
+    lösenordet användaren matade in skulle döljas med asterisker likt ett riktigt
+    lösenord, men ändå spara knapptryckningarna till en sträng i bakgrunden så 
+    jag implementerade det också. Jag gjorde också så att om användaren måste 
+    vänta i 10 sekunder om hen matar in fel lösenord tre gånger i rad. 
+
+- Menyn
+    Att skapa upp menyn var enkelt då jag bara använde mig av flera Console.WriteLine().
+    Varje alternativ fick en siffra kopplad till sig för att underlätta för användaren. 
+    Koden för menyn extraherade jag till en egen metod som jag döpte till Menu.
+
+- Member-klassen
+    Jag skapade en klass som jag döpte till Member eftersom den skulle fungera 
+    som en mall för alla medlemmar i basgruppen. Jag gav Member 11 privata fält 
+    (jag lade till ett extra fält som jag döpte till pronoun för att kunna använda 
+    han och hon om varje medlem). Sedan skapade jag upp properties för varje fält
+    men insåg att detta inte behövdes då jag bara behövde komma åt fältet name 
+    utanför Member så jag tog bort alla andra properties. Om jag senare skulle 
+    vilja expandera appen kan jag alltid lägga till fler properties om det behövs 
+    men jag kände att det var bäst att inte låta allt för mycket vara public i 
+    onödan (encapsulation och allt såntdär). Jag skapade två konstruktrer, en 
+    tom (just in case) och en som tog emot argument för varje fält vilket gjorde 
+    att jag kunde instansiera varje medlem på ett enkelt sätt. Till sist skapade 
+    jag en metod, Describe(), som använder alla fält för att beskriva medlemmen 
+    och skriva ut det till skärmen.
+
+- Listan group
+    Jag skapade en lista av Member där jag lade till alla gruppens medlemmar i. 
+    Stegen för att fylla listan med medlemmar bröt jag ut i två olika metoder. 
+    Den första heter PopulateGroup() och den anropar i sin tur AddMember() en 
+    gång för varje medlem i gruppen. AddMember() instansierar en medlem och 
+    lägger till den i listan. När jag var klar med detta kände jag att jag ville
+    utmana mig själv och implementerade funktionen att läsa in alla detaljer om 
+    varje medlem från en textfil istället för att ha det hårdkodat i programmet.
+
+- Implementeringen av menyn
+    Detta steg delade jag upp i flera mindre steg där jag valde att tackla varje 
+    moment för sig.
+    
+    Första delen var att lista alla medlemmar i basgruppen separerat med ett 
+    kommatecken. Här använde jag först en foreach-loop där jag separerade varje 
+    medlems namn med ett , men då blev det ett komma efter sista personen och det 
+    ville jag inte ha så jag bytte till en for-loop vilket gav mig mer kontroll. 
+    Detta gjorde att jag kunde bestämma om det skulle va ett , efter namnet eller 
+    om det skulle va ett &-tecken innan sista namnen och sedan kunde jag även avsluta 
+    allt med en punkt. Jag valde även att göra så att programmet bytte till en 
+    ny rad efter att hälften av medlemmarna hade skrivits ut så att texten inte 
+    stack iväg alldeles för långt åt höger. Jag använde mig av två metoder för 
+    att göra allt detta. Den första heter ListMembers() som skriver ut lite text 
+    till skärmen och sedan i sin tur anropar ShowMembers() som skriver ut alla 
+    gruppmedlemmar. Jag gjorde en överlagring på metoden ShowMembers() då jag 
+    ville att den dels skulle kunna lista alla medlemmar separerat med ett 
+    kommatecken men också senare lista alla medlemmar med en siffra framför.
+
+    Andra delen var att låta användaren få ut detaljerad information om en 
+    specifik gruppmedlem. Detta gjorde jag med hjälp av en metod KnowMore() som
+    först anropade en överlagrad ShowMembers() och som sedan lät användaren ange 
+    vilken person den ville veta mer om. Sedan anropades metoden Describe() via 
+    den gruppmedlem som valdes som i sin tur skrev ut informationen. Denna del 
+    kördes sedan ända tills användaren valde att återgå till huvudmenyn igen.
+
+    Tredje delen var att ta bort en medlem. För detta använde jag en metod, 
+    RemoveMember() visade alla medlemmar med hjälp av ShowMembers(). Sedan fick
+    användaren välja vilken medlem som skulle tas bort och den medlemmen togs 
+    sedan bort från listan med hjälp av hjälpmetoden RemoveAt().
+
+    Sedan valde jag att lägga till en egen del som gav användaren möjligheten 
+    att lägga till en medlem i gruppen. Detta gjorde jag genom att användaren 
+    fick mata in alla värden för medlemmen. Sedan sparades detta i textfilen 
+    tillsammans med alla andra medlemmar så att den fanns kvar även om programmet 
+    stängdes ned och startades om. Detta gjorde jag med hjälp av ... och jag 
+    lade allt detta i en metod som jag döpte till CreateMember().
+
+    Sista delen var att avsluta programmet och detta gjorde jag genom att skapa 
+    metoden ExitProgram(). Här skrevs en avslutande text ut til skärmen och 
+    sedan sattes bool exit till true vilket gjorde att villkoret i do/while-loopen 
+    inte längre var sant och programmet avskutades.
+
+- Namngivning
+    När det kommer till namngivning använde jag mig av camelCase för alla variabler
+    och PascalCase för metoder och klasser. Jag använde enbart engelska ord som 
+    variabelnamen och jag försökte vara så beskrivande som jag bara kunde så att 
+    namnen tydligt indikerade vad de var till för såsom metoden WriteSomethingInGreen() 
+    som skrev ut ett meddelande i grön text.
+
+- Saker jag kunde gjort annorlunda
+    Vissa metoder hade jag kunnat bryta ut och lagt i en egen klass istället för 
+    att ha nästan alla i klassen Program. Till exempel kunde alla metoder som 
+    enbart hanterade utskrift till skärmen kunnat läggas i en klass som kunde 
+    hetat Print eller något liknande.
+
+    Jag hade kunnat skriva ut texten på ett snyggare sätt med hjälp av \t vilket 
+    kanske hade gjort texten mer lättläslig än vad den är i nuläget.
+
+    Det finns säkert många fler saker som jag hade kunnat gjort annorlunda eller 
+    på ett bättre sätt som jag bara inte lärt mig än. Det ska bli kul att gå 
+    tillbaka till den här uppgiften om två år och jämföra med de kunskaper och 
+    erfarenheter jag då har samlat på mig och se vad jag kommer vilja ändra på.
+
+- Övrigt
+    När det gäller for- och foreach-loopar valde jag att använda båda för att 
+    göra mer eller mindre samma sak fast på olika sätt. Det blir tydligast att
+    se det i mina överlagrade metoder ShowMembers() där jag använder en for-loop 
+    i den ena och en foreach-loop i den andra. En foreach-loop är väldigt
+    smidig när man bara vill skriva ut allt ur en lista från början till slut, 
+    men när man behöver lite mer kontroll på var i listan man befinner sig är
+    en for-loop så mycket bättre. Visst du kan skapa upp en räknare som håller 
+    koll åt dig i en foreach-loop men med en for-loop har du redan det i och med
+    'i' (eller vad man nu vill döpa den till) som hela tiden inkrementeras för 
+    varje vända.
+
+    Jag lade till två metoder som bara fanns till för ett estetiskt syfte. Ena 
+    metoden WriteSomethingInGreen() skrev ut meddelandet som skickades med som 
+    argument i grönt och den andra WriteSomethingInRed() skrev ut meddelandet 
+    i röd text.

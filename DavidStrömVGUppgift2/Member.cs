@@ -71,7 +71,7 @@ namespace DavidStrömVGUppgift2
             else
                 Console.WriteLine($"\t{name} föddes i {birthplace} och nu bor {pronoun} " +
                     $"i {homeTown}.");
-            Console.WriteLine($"\tSista informationen om {name} är att {pronoun} har" +
+            Console.WriteLine($"\tSista delen information om {name} är att {pronoun} har" +
                 $" {siblings} syskon.");
             Console.Write("\n\tTryck på valfri tangent för att fortsätta...");
         }

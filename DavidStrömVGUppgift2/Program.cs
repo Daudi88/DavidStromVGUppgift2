@@ -145,17 +145,17 @@ namespace DavidStrömVGUppgift2
             for (int i = 0; i < lines.Count; i++)
             {
                 string[] member = lines[i].Split(',');
-                string name = member[0];
+                string name = member[0].Trim();
                 int.TryParse(member[1], out int height);
                 int.TryParse(member[2], out int age);
-                string hobby = member[3];
-                string favoriteFood = member[4];
-                string favoriteColor = member[5];
-                string motivation = member[6];
-                string homeTown = member[7];
-                string birthplace = member[8];
+                string hobby = member[3].Trim();
+                string favoriteFood = member[4].Trim();
+                string favoriteColor = member[5].Trim();
+                string motivation = member[6].Trim();
+                string homeTown = member[7].Trim();
+                string birthplace = member[8].Trim();
                 int.TryParse(member[9], out int siblings);
-                string gender = member[10];
+                string gender = member[10].Trim();
                 AddMember(name, height, age, hobby, favoriteFood, favoriteColor,
                     motivation, homeTown, birthplace, siblings, gender);
             }

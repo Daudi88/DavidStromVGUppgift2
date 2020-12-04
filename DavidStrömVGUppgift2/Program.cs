@@ -11,7 +11,8 @@ namespace DavidStrömVGUppgift2
         //Här är de globala variablerna som ska vara tillgängliga för alla
         //metoder i progranmmet. På det här sättet slipper man skicka med 
         //dem som argument vid varje metodanrop.
-        static string filePath = @"C:\Code\.NET20D\Objektorienterad programmering i C#\Inlämningsuppgifter\DavidStrömVGUppgift2\members.txt";
+        //Med hjälp av path kan man skriva till och läsa från en textfil.
+        static string path = Path.Combine(Environment.CurrentDirectory, "members.txt");
         static List<string> lines = new List<string>();
         static List<Member> group = new List<Member>();
         static int time = 2000;
@@ -31,6 +32,16 @@ namespace DavidStrömVGUppgift2
             Run();
         }
 
+        private static void Title()
+        {
+            Console.WriteLine(@"         ____  _   _     _   _              _");
+            Console.WriteLine(@"        |  _ \(_) (_)   | | | |            | |");
+            Console.WriteLine(@"        | |_) | __ _ ___| |_| | ___   _ ___| |_ ___ _ __");
+            Console.WriteLine(@"        |  _ < / _` / __| __| |/ / | | / __| __/ _ \ '_ \");
+            Console.WriteLine(@"        | |_) | (_| \__ \ |_|   <| |_| \__ \ ||  __/ | | |");
+            Console.WriteLine(@"        |____/ \__,_|___/\__|_|\_\\__,_|___/\__\___|_| |_|");
+        }
+
         //Detta är en metod som hanterar inloggningen till programmet.
         static void Login()
         {
@@ -40,8 +51,9 @@ namespace DavidStrömVGUppgift2
                 //Här körs en loop där varje tangenttryck registreras och läggs
                 //till i strängen password, men det som syns är bara asterisker.
                 string userInput = "";
-                Console.WriteLine("Välkommen till programmet!");
-                Console.Write("Ange lösenordet: ");
+                Title();
+                Console.WriteLine("\n\tVälkommen till Bästkusten!");
+                Console.Write("\tAnge lösenordet: ");
                 ConsoleKey key;
                 do
                 {
@@ -68,7 +80,7 @@ namespace DavidStrömVGUppgift2
                 string password = "Bästkusten";
                 if (userInput == password)
                 {
-                    WriteSomethingInGreen("\nKorrekt! Du angav rätt kod!");
+                    WriteSomethingInGreen("\n\tKorrekt! Du angav rätt kod!");
                     break;
                 }
                 else
@@ -76,13 +88,13 @@ namespace DavidStrömVGUppgift2
                     ctr++;
                     if (ctr > 2)
                     {
-                        WriteSomethingInRed("\nDu har matat in fel lösenord för många gånger." +
-                            "\nDu måste vänta lite innan du försöker igen.");
+                        WriteSomethingInRed("\n\tDu har matat in fel lösenord för många gånger." +
+                            "\n\tDu måste vänta lite innan du försöker igen.");
                         Thread.Sleep(time * 5);
                         ctr = 0;
                     }
                     else
-                        WriteSomethingInRed("\nFel kod! Försök igen...");
+                        WriteSomethingInRed("\n\tFel kod! Försök igen...");
                     Console.Clear();
                 }
             } while (true);
@@ -100,27 +112,26 @@ namespace DavidStrömVGUppgift2
                 switch (choice)
                 {
                     case 1:
-                        WriteSomethingInGreen("Du valde att lista alla deltagare i gruppen.");
+                        WriteSomethingInGreen("\tDu valde att visa alla medlemmar i gruppen.");
                         ListMembers(); 
                         break;
                     case 2:
-                        WriteSomethingInGreen("Du valde att veta mer om en specifik gruppmedlem.");
+                        WriteSomethingInGreen("\tDu valde att veta mer om en specifik gruppmedlem.");
                         KnowMore();
                         break;
                     case 3:
-                        WriteSomethingInGreen("Du valde att lägga till en gruppmedlem.");
+                        WriteSomethingInGreen("\tDu valde att lägga till en gruppmedlem.");
                         CreateMember();
                         break;
                     case 4:
-                        WriteSomethingInGreen("Du valde att ta bort en gruppmedlem.");
+                        WriteSomethingInGreen("\tDu valde att ta bort en gruppmedlem.");
                         RemoveMember();
                         break;
                     case 5:
-                        WriteSomethingInGreen("Du valde att avsluta programmet.");
                         ExitProgram();
                         break;
                     default:
-                        WriteSomethingInRed("Du måste vålja mellan 1-4.");
+                        WriteSomethingInRed("\tDu måste vålja mellan 1-4...");
                         break;
                 }
             } while (!exit);
@@ -130,7 +141,7 @@ namespace DavidStrömVGUppgift2
         static void PopulateGroup()
         {
             
-            lines = File.ReadAllLines(filePath).ToList();
+            lines = File.ReadAllLines(path).ToList();
             for (int i = 0; i < lines.Count; i++)
             {
                 string[] member = lines[i].Split(',');
@@ -164,21 +175,35 @@ namespace DavidStrömVGUppgift2
         static void Menu()
         {
             Console.Clear();
-            Console.WriteLine("Vad vill du göra?");
-            Console.WriteLine("1. Lista alla deltagare i gruppen.");
-            Console.WriteLine("2. Veta mer om en specifik gruppmedlem.");
-            Console.WriteLine("3. Lägg till en person i gruppen.");
-            Console.WriteLine("4. Ta bort en person ur gruppen.");
-            Console.WriteLine("5. Avsluta programmet.");
+            Console.WriteLine(@"         _    _                       _");
+            Console.WriteLine(@"        | |  | |                     | |");
+            Console.WriteLine(@"        | |__| |_   ___   ___   _  __| |_ __ ___   ___ _ __  _   _");
+            Console.WriteLine(@"        |  __  | | | \ \ / / | | |/ _` | '_ ` _ \ / _ \ '_ \| | | |");
+            Console.WriteLine(@"        | |  | | |_| |\ V /| |_| | (_| | | | | | |  __/ | | | |_| |");
+            Console.WriteLine(@"        |_|  |_|\__,_| \_/  \__,_|\__,_|_| |_| |_|\___|_| |_|\__, |");
+            Console.WriteLine(@"                                                              __/ |");
+            Console.WriteLine(@"        1. Visa medlemmarna i gruppen.                       |___/ ");
+            Console.WriteLine("\t2. Veta mer om en specifik gruppmedlem.");
+            Console.WriteLine("\t3. Lägg till en person i gruppen.");
+            Console.WriteLine("\t4. Ta bort en person ur gruppen.");
+            Console.WriteLine("\t5. Avsluta programmet.");
+            Console.Write("\n\tVad vill du göra? ");
+
         }
 
         //Här är en metod som skriver ut alla gruppmedlemmar till skärmen.
         static void ListMembers()
         {
             Console.Clear();
-            Console.WriteLine("Detta är alla medlemmar i Bästkusten:\n");
+            Console.WriteLine(@"         __  __          _ _");
+            Console.WriteLine(@"        |  \/  |        | | |");
+            Console.WriteLine(@"        | \  / | ___  __| | | ___ _ __ ___  _ __ ___   __ _ _ __");
+            Console.WriteLine(@"        | |\/| |/ _ \/ _` | |/ _ \ '_ ` _ \| '_ ` _ \ / _` | '__|");
+            Console.WriteLine(@"        | |  | |  __/ (_| | |  __/ | | | | | | | | | | (_| | |");
+            Console.WriteLine(@"        |_|  |_|\___|\__,_|_|\___|_| |_| |_|_| |_| |_|\__,_|_|");
+            Console.WriteLine();
             ShowMembers();
-            Console.Write("\nTryck på valfri tangent för att återgå till menyn...");
+            Console.Write("\n\tTryck på valfri tangent för att återgå till huvudmenyn...");
             Console.ReadKey(true);
         }
 
@@ -187,6 +212,8 @@ namespace DavidStrömVGUppgift2
         static void ShowMembers()
         {
             int ctr = 0;
+            Console.Write("\t");
+
             //Här används en for-loop istället för en foreach för att kunna
             //kontrollera när &-teckenet ska skrivas ut.
             for (int i = 0; i < group.Count; i++)
@@ -205,9 +232,9 @@ namespace DavidStrömVGUppgift2
 
                 //Här bryter vi till en ny rad efter att halva gruppens
                 //medlemmar har skrivits ut.
-                if (ctr > group.Count / 2)
+                if (ctr > 8)
                 {
-                    Console.WriteLine();
+                    Console.Write("\n\t");
                     ctr = 0;
                 }
             }
@@ -218,9 +245,7 @@ namespace DavidStrömVGUppgift2
         static void ShowMembers(int ctr)
         {
             foreach (var member in group)
-            {
-                Console.WriteLine($"{ctr++}. {member.Name}");  
-            }
+                Console.WriteLine($"\t{ctr++}. {member.Name}");  
         }
 
         //Här är en metod som låter användaren få mer detaljer om en specifik
@@ -230,13 +255,20 @@ namespace DavidStrömVGUppgift2
             do
             {
                 Console.Clear();
-                Console.WriteLine("Vilken gruppmedlem vill du veta mer om?\n");
+                Console.WriteLine(@"        __      __  _");
+                Console.WriteLine(@"        \ \    / / | |");
+                Console.WriteLine(@"         \ \  / /__| |_ __ _   _ __ ___   ___ _ __ ");
+                Console.WriteLine(@"          \ \/ / _ \ __/ _` | | '_ ` _ \ / _ \ '__|");
+                Console.WriteLine(@"           \  /  __/ || (_| | | | | | | |  __/ |");
+                Console.WriteLine(@"            \/ \___|\__\__,_| |_| |_| |_|\___|_|");
+                Console.WriteLine();
                 ShowMembers(1);
-                Console.WriteLine("\nTryck bara Enter om du vill avbryta och återgå till menyn...");
+                Console.WriteLine("\n\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
+                Console.Write("\tVilken gruppmedlem vill du veta mer om? ");
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= group.Count)
                 {
-                    WriteSomethingInGreen($"Du vill veta mer om {group[choice - 1].Name}.");
+                    WriteSomethingInGreen($"\tDu vill veta mer om {group[choice - 1].Name}.");
                     Console.Clear();
                     group[choice - 1].Describe();
                     Console.ReadKey(true);
@@ -249,7 +281,7 @@ namespace DavidStrömVGUppgift2
                 //listan skrivs ett felmeddelande ut
                 else
                 {
-                    WriteSomethingInRed($"\nDu måste ange en siffra mellan 1 och {group.Count}.");
+                    WriteSomethingInRed($"\n\tDu måste ange en siffra mellan 1 och {group.Count}...");
                 }
                 
             } while (true);
@@ -260,30 +292,91 @@ namespace DavidStrömVGUppgift2
         static void CreateMember()
         {
             Console.Clear();
-            Console.WriteLine("Du kommer nu få fylla i lite olika detaljer om " +
+            Console.WriteLine(@"         _     _   _                     _   _ _ _ ");
+            Console.WriteLine(@"        | |   (_) (_)                   | | (_) | |");
+            Console.WriteLine(@"        | |     __ _  __ _  __ _  __ _  | |_ _| | |");
+            Console.WriteLine(@"        | |    / _` |/ _` |/ _` |/ _` | | __| | | |");
+            Console.WriteLine(@"        | |___| (_| | (_| | (_| | (_| | | |_| | | |");
+            Console.WriteLine(@"        |______\__,_|\__, |\__, |\__,_|  \__|_|_|_|");
+            Console.WriteLine(@"                      __/ | __/ |");
+            Console.WriteLine(@"                     |___/ |___/");
+            Console.WriteLine("\n\tDu kommer nu få fylla i lite detaljer om " +
                 "den nya gruppmedlemmen.");
-            Console.Write("Namn: ");
+            Console.WriteLine("\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
+            Console.Write("\n\tNamn: ");
             string name = Console.ReadLine();
-            Console.Write("Längd: ");
-            int.TryParse(Console.ReadLine(), out int height);
-            Console.Write("Ålder: ");
-            int.TryParse(Console.ReadLine(), out int age);
-            Console.Write("Hobby: ");
+            if (name == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tLängd: ");
+            if (!int.TryParse(Console.ReadLine(), out int height))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tÅlder: ");
+            if (!int.TryParse(Console.ReadLine(), out int age))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tHobby: ");
             string hobby = Console.ReadLine();
-            Console.Write("Favoriträtt: ");
+            if (hobby == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tFavoriträtt: ");
             string favoriteFood = Console.ReadLine();
-            Console.Write("Favoritfärg: ");
+            if (favoriteFood == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tFavoritfärg: ");
             string favoriteColor = Console.ReadLine();
-            Console.Write("Motivation till programmering: ");
+            if (favoriteColor == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tMotivation till programmering: ");
             string motivation = Console.ReadLine();
-            Console.Write("Hemort: ");
+            if (motivation == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tHemort: ");
             string homeTown = Console.ReadLine();
-            Console.Write("Födelseort: ");
+            if (homeTown == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tFödelseort: ");
             string birthplace = Console.ReadLine();
-            Console.Write("Syskon: ");
-            int.TryParse(Console.ReadLine(), out int siblings);
-            Console.Write("Kön: ");
+            if (birthplace == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tSyskon: ");
+            if (!int.TryParse(Console.ReadLine(), out int siblings))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+            Console.Write("\tKön: ");
             string gender = Console.ReadLine();
+            if (gender == "")
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
 
             name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
             hobby = hobby.ToLower();
@@ -299,8 +392,8 @@ namespace DavidStrömVGUppgift2
             string line = $"{name}, {height}, {age}, {hobby}, {favoriteFood}, {favoriteColor}, " +
                 $"{motivation}, {homeTown}, {birthplace}, {siblings}, {gender}";
             lines.Add(line);
-            File.WriteAllLines(filePath, lines);
-            WriteSomethingInGreen($"{name} är nu tillagd.");
+            File.WriteAllLines(path, lines);
+            WriteSomethingInGreen($"\t{name} är nu tillagd.");
             Thread.Sleep(time / 2);
         }
 
@@ -310,28 +403,38 @@ namespace DavidStrömVGUppgift2
             do
             {
                 Console.Clear();
-                Console.WriteLine("Vilken gruppmedlem vill du ta bort?\n");
+                Console.WriteLine(@"         _______      _                _");
+                Console.WriteLine(@"        |__   __|    | |              | |");
+                Console.WriteLine(@"           | | __ _  | |__   ___  _ __| |_");
+                Console.WriteLine(@"           | |/ _` | | '_ \ / _ \| '__| __|");
+                Console.WriteLine(@"           | | (_| | | |_) | (_) | |  | |_");
+                Console.WriteLine(@"           |_|\__,_| |_.__/ \___/|_|   \__|");
+                Console.WriteLine();
                 ShowMembers(1);
-                Console.WriteLine("\nTryck bara Enter om du vill avbryta och återgå till menyn...");
+                Console.WriteLine("\n\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
+                Console.Write("\tVilken gruppmedlem vill du ta bort? ");
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= group.Count)
                 {
                     choice--;
-                    WriteSomethingInGreen(string.Format("{0} är nu borttagen.", group[choice].Name));
+                    WriteSomethingInGreen(string.Format("\t{0} är nu borttagen.", group[choice].Name));
                     group.RemoveAt(choice);
                     lines.RemoveAt(choice);
-                    File.WriteAllLines(filePath, lines);
+                    File.WriteAllLines(path, lines);
                     break;
                 }
                 //Om användaren matar in bokstäver eller bara trycker Enter 
                 //kommer UserChoice returnera 0 och då bryter vi oss ut ur loopen.
                 else if (choice == 0)
+                {
+                    WriteSomethingInRed("\tÅtgärden avbryts...");
                     break;
+                }
                 //Om användaren matar in en siffra som ligger utanför ramen av 
                 //listan skrivs ett felmeddelande ut
                 else
                 {
-                    WriteSomethingInRed($"\nDu måste ange en siffra mellan 1 och {group.Count}.");
+                    WriteSomethingInRed($"\n\tDu måste ange en siffra mellan 1 och {group.Count}...");
                 }
             } while (true);
 
@@ -343,7 +446,7 @@ namespace DavidStrömVGUppgift2
             //Här sätts exit till true och ett avslutande meddelande skrivs ut
             //med lite visuell effekt som får det att se ut som att datorn tänker.
             exit = true;
-            WriteSomethingInGreen("\nProgrammet avslutas");
+            WriteSomethingInGreen("\tProgrammet avslutas");
             for (int i = 0; i < 3; i++)
             {
                 WriteSomethingInGreen(".");

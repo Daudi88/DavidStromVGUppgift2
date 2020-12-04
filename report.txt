@@ -112,8 +112,14 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
     enbart hanterade utskrift till skärmen kunnat läggas i en klass som kunde 
     hetat Print eller något liknande.
 
-    Jag hade kunnat skriva ut texten på ett snyggare sätt med hjälp av \t vilket 
-    kanske hade gjort texten mer lättläslig än vad den är i nuläget.
+    Min felhantering i metoden CreateMember() är bristfällig. Det enda jag har
+    gjort är att användaren kan avsluta åtgärden om hen bara trycker enter. 
+    Detsamma sker också om användaren matar in något annat än siffror till de 
+    fälten som ska spara ett heltal men annars kan man mer eller mindre skriva
+    in lite vad som helst på varje fält. Detta skulle jag kunnat gjort mer 
+    utförligt. Koden för hur metoden avbryts om användaren väljer att avbryta
+    är inte heller den bästa med mycket copy-paste och jag är inte helt DRY där.
+    Det är också något jag kunde gjort bättre.
 
     Det finns säkert många fler saker som jag hade kunnat gjort annorlunda eller 
     på ett bättre sätt som jag bara inte lärt mig än. Det ska bli kul att gå 
@@ -136,3 +142,9 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
     metoden WriteSomethingInGreen() skrev ut meddelandet som skickades med som 
     argument i grönt och den andra WriteSomethingInRed() skrev ut meddelandet 
     i röd text.
+
+    Till sist lade jag till lite rubriker med hjälp av en ASCII Art Generator
+    Vilken gjorde programmet lite roligare att titta på. Jag hade säkert kunnat
+    sparat rubrikerna i en textfil och sedan läst in dem i programmet därifrån
+    istället för att hårdkoda dem, men jag var var inte helt säker på hur jag 
+    skulle göra det på ett smidigt sätt så det blev såhär istället.

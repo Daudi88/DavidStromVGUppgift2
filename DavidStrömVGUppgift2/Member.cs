@@ -16,7 +16,6 @@ namespace DavidStrömVGUppgift2
         private string homeTown;
         private string birthplace;
         private int siblings;
-        private string pronoun;
         private string gender;
 
         //Här är en tom konstruktor (även om den inte används som programmet 
@@ -59,22 +58,22 @@ namespace DavidStrömVGUppgift2
             else
                 pronoun = "hon";
 
-            Console.WriteLine($"Detta är {name}.");
-            Console.WriteLine($"{name} är {age} år gammal, {height} cm lång och " +
+            Console.WriteLine($"\n\tDetta är {name}.\n");
+            Console.WriteLine($"\t{name} är {age} år gammal, {height} cm lång och " +
                 $"{pronoun} har {hobby} som hobby.");
-            Console.WriteLine($"När det kommer till favoriter har {name} {favoriteFood} " +
+            Console.WriteLine($"\tNär det kommer till favoriter har {name} {favoriteFood} " +
                 $"som favoriträtt och favoritfärgen är {favoriteColor}.");
-            Console.WriteLine($"Motivationen till programering för {Name} är " +
+            Console.WriteLine($"\tMotivationen till programering för {Name} är " +
                 $"{motivation}.");
             if (homeTown.EndsWith('ö'))
-                Console.WriteLine($"{name} föddes i {birthplace} och nu bor {pronoun} " +
+                Console.WriteLine($"\t{name} föddes i {birthplace} och nu bor {pronoun} " +
                 $"på {homeTown}.");
             else
-                Console.WriteLine($"{name} föddes i {birthplace} och nu bor {pronoun} " +
+                Console.WriteLine($"\t{name} föddes i {birthplace} och nu bor {pronoun} " +
                     $"i {homeTown}.");
-            Console.WriteLine($"Sista informationen om {name} är att {pronoun} har" +
+            Console.WriteLine($"\tSista informationen om {name} är att {pronoun} har" +
                 $" {siblings} syskon.");
-            Console.Write("\nTryck på valfri tangent för att fortsätta...");
+            Console.Write("\n\tTryck på valfri tangent för att fortsätta...");
         }
     }
 }

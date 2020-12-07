@@ -15,43 +15,32 @@ namespace DavidStrömVGUppgift2
         static string path = Path.Combine(Environment.CurrentDirectory, "members.txt");
         static List<string> lines = new List<string>();
         static List<Member> group = new List<Member>();
-        static int time = 2000;
+        static readonly int time = 2000;
         static bool exit = false;
 
         //Här är den första metoden som körs.
         static void Main(string[] args)
         {
-            //Här anropas metoden Start som sätter igång hela programmet.
-            Start();
-        }
-
-        //Här är en metod som sätter igång hela programmet.
-        static void Start()
-        {
             Login();
             Run();
-        }
-
-        private static void Title()
-        {
-            Console.WriteLine(@"         ____  _   _     _   _              _");
-            Console.WriteLine(@"        |  _ \(_) (_)   | | | |            | |");
-            Console.WriteLine(@"        | |_) | __ _ ___| |_| | ___   _ ___| |_ ___ _ __");
-            Console.WriteLine(@"        |  _ < / _` / __| __| |/ / | | / __| __/ _ \ '_ \");
-            Console.WriteLine(@"        | |_) | (_| \__ \ |_|   <| |_| \__ \ ||  __/ | | |");
-            Console.WriteLine(@"        |____/ \__,_|___/\__|_|\_\\__,_|___/\__\___|_| |_|");
         }
 
         //Detta är en metod som hanterar inloggningen till programmet.
         static void Login()
         {
+            Console.Title = "Bästkusten";
             int ctr = 0;
             do
             {
                 //Här körs en loop där varje tangenttryck registreras och läggs
                 //till i strängen password, men det som syns är bara asterisker.
                 string userInput = "";
-                Title();
+                Console.WriteLine(@"         ____  _   _     _   _              _");
+                Console.WriteLine(@"        |  _ \(_) (_)   | | | |            | |");
+                Console.WriteLine(@"        | |_) | __ _ ___| |_| | ___   _ ___| |_ ___ _ __");
+                Console.WriteLine(@"        |  _ < / _` / __| __| |/ / | | / __| __/ _ \ '_ \");
+                Console.WriteLine(@"        | |_) | (_| \__ \ |_|   <| |_| \__ \ ||  __/ | | |");
+                Console.WriteLine(@"        |____/ \__,_|___/\__|_|\_\\__,_|___/\__\___|_| |_|");
                 Console.WriteLine("\n\tVälkommen till Bästkusten!");
                 Console.Write("\tAnge lösenordet: ");
                 ConsoleKey key;
@@ -83,6 +72,11 @@ namespace DavidStrömVGUppgift2
                     WriteSomethingInGreen("\n\tKorrekt! Du angav rätt kod!");
                     break;
                 }
+                else if (userInput == "")
+                {
+                    WriteSomethingInGreen("Tips, lösenordet är basgruppens namn");
+                    Console.Clear();
+                }
                 else
                 {
                     ctr++;
@@ -112,22 +106,21 @@ namespace DavidStrömVGUppgift2
                 switch (choice)
                 {
                     case 1:
-                        WriteSomethingInGreen("\tDu valde att visa alla medlemmar i gruppen.");
                         ListMembers(); 
                         break;
                     case 2:
-                        WriteSomethingInGreen("\tDu valde att veta mer om en specifik gruppmedlem.");
                         KnowMore();
                         break;
                     case 3:
-                        WriteSomethingInGreen("\tDu valde att lägga till en gruppmedlem.");
                         CreateMember();
                         break;
                     case 4:
-                        WriteSomethingInGreen("\tDu valde att ta bort en gruppmedlem.");
-                        RemoveMember();
+                        EditMember();
                         break;
                     case 5:
+                        RemoveMember();
+                        break;
+                    case 6:
                         ExitProgram();
                         break;
                     default:
@@ -140,33 +133,36 @@ namespace DavidStrömVGUppgift2
         //Här är en metod som lägger till alla gruppmedlemmar i listan group.
         static void PopulateGroup()
         {
-            
             lines = File.ReadAllLines(path).ToList();
-            for (int i = 0; i < lines.Count; i++)
+            if (lines.Count > 0)
             {
-                string[] member = lines[i].Split(',');
-                string name = member[0].Trim();
-                int.TryParse(member[1], out int height);
-                int.TryParse(member[2], out int age);
-                string hobby = member[3].Trim();
-                string favoriteFood = member[4].Trim();
-                string favoriteColor = member[5].Trim();
-                string motivation = member[6].Trim();
-                string homeTown = member[7].Trim();
-                string birthplace = member[8].Trim();
-                int.TryParse(member[9], out int siblings);
-                string gender = member[10].Trim();
-                AddMember(name, height, age, hobby, favoriteFood, favoriteColor,
-                    motivation, homeTown, birthplace, siblings, gender);
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    string[] member = lines[i].Split(',');
+                    string firstName = member[0].Trim();
+                    string lastName = member[1].Trim();
+                    int.TryParse(member[2], out int height);
+                    int.TryParse(member[3], out int age);
+                    string hobby = member[4].Trim();
+                    string favoriteFood = member[5].Trim();
+                    string favoriteColor = member[6].Trim();
+                    string motivation = member[7].Trim();
+                    string homeTown = member[8].Trim();
+                    string birthplace = member[9].Trim();
+                    int.TryParse(member[10], out int siblings);
+                    string gender = member[11].Trim();
+                    AddMember(firstName, lastName, height, age, hobby, favoriteFood, favoriteColor,
+                        motivation, homeTown, birthplace, siblings, gender);
+                }
             }
         }
 
         //Här är en metod som lägger till en gruppmedlem i listan group.
-        static void AddMember(string name, int height, int age, string hobby, 
+        static void AddMember(string firstName, string lastName, int height, int age, string hobby, 
             string favoriteFood, string favoriteColor, string motivation, 
             string homeTown, string birthplace, int siblings, string gender)
         {
-            var member = new Member(name, height, age, hobby, favoriteFood, 
+            var member = new Member(firstName, lastName, height, age, hobby, favoriteFood, 
                 favoriteColor, motivation, homeTown, birthplace, siblings, gender);
             group.Add(member);
         }
@@ -185,8 +181,9 @@ namespace DavidStrömVGUppgift2
             Console.WriteLine(@"        1. Visa medlemmarna i gruppen.                       |___/ ");
             Console.WriteLine("\t2. Veta mer om en specifik gruppmedlem.");
             Console.WriteLine("\t3. Lägg till en person i gruppen.");
-            Console.WriteLine("\t4. Ta bort en person ur gruppen.");
-            Console.WriteLine("\t5. Avsluta programmet.");
+            Console.WriteLine("\t4. Ändra en person i gruppen.");
+            Console.WriteLine("\t5. Ta bort en person ur gruppen.");
+            Console.WriteLine("\t6. Avsluta programmet.");
             Console.Write("\n\tVad vill du göra? ");
 
         }
@@ -218,7 +215,7 @@ namespace DavidStrömVGUppgift2
             //kontrollera när &-teckenet ska skrivas ut.
             for (int i = 0; i < group.Count; i++)
             {
-                Console.Write(group[i].Name);
+                Console.Write($"{group[i].FirstName} {group[i].LastName}");
 
                 //Här körs en if-sats för att se till att namnen skrivs ut på 
                 //ett snyggt sätt och att ett &-tecken skrivs ut innan sista namnet.
@@ -232,7 +229,7 @@ namespace DavidStrömVGUppgift2
 
                 //Här bryter vi till en ny rad efter att halva gruppens
                 //medlemmar har skrivits ut.
-                if (ctr > 8)
+                if (ctr > 4)
                 {
                     Console.Write("\n\t");
                     ctr = 0;
@@ -245,7 +242,7 @@ namespace DavidStrömVGUppgift2
         static void ShowMembers(int ctr)
         {
             foreach (var member in group)
-                Console.WriteLine($"\t{ctr++}. {member.Name}");  
+                Console.WriteLine($"\t{ctr++}. {member.FirstName} {member.LastName}");  
         }
 
         //Här är en metod som låter användaren få mer detaljer om en specifik
@@ -268,7 +265,7 @@ namespace DavidStrömVGUppgift2
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= group.Count)
                 {
-                    WriteSomethingInGreen($"\tDu vill veta mer om {group[choice - 1].Name}.");
+                    WriteSomethingInGreen($"\tDu vill veta mer om {group[choice - 1].FirstName} {group[choice - 1].LastName}.");
                     Console.Clear();
                     group[choice - 1].Describe();
                     Console.ReadKey(true);
@@ -280,10 +277,7 @@ namespace DavidStrömVGUppgift2
                 //Om användaren matar in en siffra som ligger utanför ramen av 
                 //listan skrivs ett felmeddelande ut
                 else
-                {
                     WriteSomethingInRed($"\n\tDu måste ange en siffra mellan 1 och {group.Count}...");
-                }
-                
             } while (true);
         }
 
@@ -303,82 +297,90 @@ namespace DavidStrömVGUppgift2
             Console.WriteLine("\n\tDu kommer nu få fylla i lite detaljer om " +
                 "den nya gruppmedlemmen.");
             Console.WriteLine("\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
-            Console.Write("\n\tNamn: ");
-            string name = Console.ReadLine();
-            if (name == "")
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tLängd: ");
-            if (!int.TryParse(Console.ReadLine(), out int height))
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tÅlder: ");
-            if (!int.TryParse(Console.ReadLine(), out int age))
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tHobby: ");
-            string hobby = Console.ReadLine();
-            if (hobby == "")
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tFavoriträtt: ");
-            string favoriteFood = Console.ReadLine();
-            if (favoriteFood == "")
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tFavoritfärg: ");
-            string favoriteColor = Console.ReadLine();
-            if (favoriteColor == "")
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tMotivation till programmering: ");
-            string motivation = Console.ReadLine();
-            if (motivation == "")
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tHemort: ");
-            string homeTown = Console.ReadLine();
-            if (homeTown == "")
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tFödelseort: ");
-            string birthplace = Console.ReadLine();
-            if (birthplace == "")
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tSyskon: ");
-            if (!int.TryParse(Console.ReadLine(), out int siblings))
-            {
-                WriteSomethingInRed("\tÅtgärden avbryts...");
-                return;
-            }
-            Console.Write("\tKön: ");
-            string gender = Console.ReadLine();
-            if (gender == "")
+            Member member = new Member();
+            string firstName = Assign("\n\tFörnamn: ");
+            if (!Validate(firstName))
             {
                 WriteSomethingInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
+            string lastName = Assign("\tEfternamn: ");
+            if (!Validate(lastName))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            if (!int.TryParse(Assign("\tLängd: "), out int height))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            if (!int.TryParse(Assign("\tÅlder: "), out int age))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            string hobby = Assign("\tHobby: ");
+            if (!Validate(hobby))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            string favoriteFood = Assign("\tFavoriträtt: ");
+            if (!Validate(favoriteFood))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            string favoriteColor = Assign("\tFavoritfärg: ");
+            if (!Validate(favoriteColor))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            string motivation = Assign("\tMotivation till programmering: ");
+            if (!Validate(motivation))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            string homeTown = Assign("\tHemort: ");
+            if (!Validate(homeTown))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            string birthplace = Assign("\tFödelseort: ");
+            if (!Validate(birthplace))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            if (!int.TryParse(Assign("\tSyskon: "), out int siblings))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            string gender = Assign("\tKön: ");
+            if (!Validate(gender))
+            {
+                WriteSomethingInRed("\tÅtgärden avbryts...");
+                return;
+            }
+
+            firstName = char.ToUpper(firstName[0]) + firstName.Substring(1).ToLower();
+            lastName = char.ToUpper(lastName[0]) + lastName.Substring(1).ToLower();
             hobby = hobby.ToLower();
             favoriteFood = favoriteFood.ToLower();
             favoriteColor = favoriteColor.ToLower();
@@ -387,14 +389,210 @@ namespace DavidStrömVGUppgift2
             birthplace = char.ToUpper(birthplace[0]) + birthplace.Substring(1).ToLower();
             gender = gender.ToLower();
 
-            AddMember(name, height, age, hobby, favoriteFood, favoriteColor, 
+            AddMember(firstName, lastName, height, age, hobby, favoriteFood, favoriteColor, 
                 motivation, homeTown, birthplace, siblings, gender);
-            string line = $"{name}, {height}, {age}, {hobby}, {favoriteFood}, {favoriteColor}, " +
+            
+            string line = $"{firstName}, {lastName}, {height}, {age}, {hobby}, {favoriteFood}, {favoriteColor}, " +
                 $"{motivation}, {homeTown}, {birthplace}, {siblings}, {gender}";
+            
             lines.Add(line);
             File.WriteAllLines(path, lines);
-            WriteSomethingInGreen($"\t{name} är nu tillagd.");
-            Thread.Sleep(time / 2);
+            
+            WriteSomethingInGreen($"\t{firstName} {lastName} är nu tillagd.");
+        }
+
+        static string Assign(string message)
+        {
+            Console.Write(message);
+            return Console.ReadLine();
+        }
+
+        static bool Validate(string str)
+        {
+            if (str == "")
+                return false;
+            return true;
+        }
+
+        static void EditMember()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine(@"         _   _            _");
+                Console.WriteLine(@"        (_)_(_)          | |");
+                Console.WriteLine(@"          / \   _ __   __| |_ __ __ _");
+                Console.WriteLine(@"         / _ \ | '_ \ / _` | '__/ _` |");
+                Console.WriteLine(@"        / ___ \| | | | (_| | | | (_| |");
+                Console.WriteLine(@"       /_/   \_\_| |_|\__,_|_|  \__,_|");
+                Console.WriteLine();
+                ShowMembers(1);
+                Console.WriteLine("\n\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
+                Console.Write("\tVilken gruppmedlem vill du ändra på? ");
+                if (int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    int member = choice - 1;
+                    WriteSomethingInGreen($"\tDu har valt att ändra på {group[member].FirstName} {group[member].LastName}.");
+                    bool exit = false;
+                    do
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"\n\t1. Förnamn: {group[member].FirstName}");
+                        Console.WriteLine($"\t2. Efternamn: {group[member].LastName}");
+                        Console.WriteLine($"\t3. Längd: {group[member].Height}");
+                        Console.WriteLine($"\t4. Ålder: {group[member].Age}");
+                        Console.WriteLine($"\t5. Hobby: {group[member].Hobby}");
+                        Console.WriteLine($"\t6. Favoriträtt: {group[member].FavoriteFood}");
+                        Console.WriteLine($"\t7. Favoritfärg: {group[member].FavoriteColor}");
+                        Console.WriteLine($"\t8. Motivation till programmering: {group[member].Motivation}");
+                        Console.WriteLine($"\t9. Hemort: {group[member].HomeTown}");
+                        Console.WriteLine($"\t10. Födelseort: {group[member].Birthplace}");
+                        Console.WriteLine($"\t11. Syskon: {group[member].Siblings}");
+                        Console.WriteLine($"\t12. Kön: {group[member].Gender}");
+                        Console.WriteLine("\n\tTryck bara Enter för att avbryta och gå tillbaka...");
+                        Console.Write($"\tVad vill du ändra på? ");
+                        if (int.TryParse(Console.ReadLine(), out choice))
+                        {
+                            Console.WriteLine();
+                            switch (choice)
+                            {
+                                case 1:
+                                    string firstName = Assign("\n\tFörnamn: ");
+                                    if (!Validate(firstName))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].FirstName = firstName;
+                                    break;
+                                case 2:
+                                    string lastName = Assign("\n\tEfternamn: ");
+                                    if (!Validate(lastName))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].LastName = lastName;
+                                    break;
+                                case 3:
+                                    if (!int.TryParse(Assign("\tLängd: "), out int height))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].Height = height;
+                                    break;
+                                case 4:
+                                    if (!int.TryParse(Assign("\tÅlder: "), out int age))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].Age = age;
+                                    break;
+                                case 5:
+                                    string hobby = Assign("\tHobby: ");
+                                    if (!Validate(hobby))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].Hobby = hobby;
+                                    break;
+                                case 6:
+                                    string favoriteFood = Assign("\tFavoriträtt: ");
+                                    if (!Validate(favoriteFood))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].FavoriteFood = favoriteFood;
+                                    break;
+                                case 7:
+                                    string favoriteColor = Assign("\tFavoritfärg: ");
+                                    if (!Validate(favoriteColor))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].FavoriteColor = favoriteColor;
+                                    break;
+                                case 8:
+                                    string motivation = Assign("\tMotivation till programmering: ");
+                                    if (!Validate(motivation))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].Motivation = motivation;
+                                    break;
+                                case 9:
+                                    string homeTown = Assign("\tHemort: ");
+                                    if (!Validate(homeTown))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].HomeTown = homeTown;
+                                    break;
+                                case 10:
+                                    string birthplace = Assign("\tFödelseort: ");
+                                    if (!Validate(birthplace))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].Birthplace = birthplace;
+                                    break;
+                                case 11:
+                                    if (!int.TryParse(Assign("\tSyskon: "), out int siblings))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].Siblings = siblings;
+                                    break;
+                                case 12:
+                                    string gender = Assign("\tKön: ");
+                                    if (!Validate(gender))
+                                    {
+                                        WriteSomethingInRed("\tÅtgärden avbryts...");
+                                        exit = true;
+                                    }
+                                    else
+                                        group[member].Gender = gender;
+                                    break;
+                                default:
+                                    WriteSomethingInRed($"\n\tDu måste ange en siffra mellan 1 och 12...");
+                                    break;
+                            };
+                        }
+                        else
+                            break;
+                    } while (!exit);
+                    string line = $"{group[member].FirstName}, {group[member].LastName}, " +
+                            $"{group[member].Height}, {group[member].Age}, {group[member].Hobby}, " +
+                            $"{group[member].FavoriteFood}, {group[member].FavoriteColor}, " +
+                            $"{group[member].Motivation}, {group[member].HomeTown}, " +
+                            $"{group[member].Birthplace}, {group[member].Siblings}, " +
+                            $"{group[member].Gender}";
+                    lines[member] = line;
+                    File.WriteAllLines(path, lines);
+                }
+                else
+                    break;
+            } while (true);
         }
 
         //Här är en metod som låter användaren ta bort en gruppmedlem.
@@ -417,7 +615,7 @@ namespace DavidStrömVGUppgift2
                 if (choice > 0 && choice <= group.Count)
                 {
                     choice--;
-                    WriteSomethingInGreen(string.Format("\t{0} är nu borttagen.", group[choice].Name));
+                    WriteSomethingInGreen($"\t{group[choice].FirstName} {group[choice].LastName} är nu borttagen.");
                     group.RemoveAt(choice);
                     lines.RemoveAt(choice);
                     File.WriteAllLines(path, lines);

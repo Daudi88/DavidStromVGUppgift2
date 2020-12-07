@@ -35,7 +35,7 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
 - Member-klassen
     Jag skapade en klass som jag döpte till Member eftersom den skulle fungera 
     som en mall för alla medlemmar i basgruppen. Jag gav Member 11 privata fält 
-    (jag lade till ett extra fält som jag döpte till pronoun för att kunna använda 
+    (jag lade till ett extra fält som jag döpte till gender för att kunna använda 
     han och hon om varje medlem). Sedan skapade jag upp properties för varje fält
     men insåg att detta inte behövdes då jag bara behövde komma åt fältet name 
     utanför Member så jag tog bort alla andra properties. Om jag senare skulle 
@@ -53,7 +53,7 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
     Den första heter PopulateGroup() och den anropar i sin tur AddMember() en 
     gång för varje medlem i gruppen. AddMember() instansierar en medlem och 
     lägger till den i listan. När jag var klar med detta kände jag att jag ville
-    utmana mig själv och implementerade funktionen att läsa in alla detaljer om 
+    utmana mig själv och implementerade funktionaliteten att läsa in alla detaljer om 
     varje medlem från en textfil istället för att ha det hårdkodat i programmet.
 
 - Implementeringen av menyn
@@ -62,17 +62,16 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
     
     Första delen var att lista alla medlemmar i basgruppen separerat med ett 
     kommatecken. Här använde jag först en foreach-loop där jag separerade varje 
-    medlems namn med ett , men då blev det ett komma efter sista personen och det 
+    medlems namn med ett ',' men då blev det ett komma efter sista personen och det 
     ville jag inte ha så jag bytte till en for-loop vilket gav mig mer kontroll. 
-    Detta gjorde att jag kunde bestämma om det skulle va ett , efter namnet eller 
-    om det skulle va ett &-tecken innan sista namnen och sedan kunde jag även avsluta 
-    allt med en punkt. Jag valde även att göra så att programmet bytte till en 
-    ny rad efter att hälften av medlemmarna hade skrivits ut så att texten inte 
-    stack iväg alldeles för långt åt höger. Jag använde mig av två metoder för 
-    att göra allt detta. Den första heter ListMembers() som skriver ut lite text 
-    till skärmen och sedan i sin tur anropar ShowMembers() som skriver ut alla 
-    gruppmedlemmar. Jag gjorde en överlagring på metoden ShowMembers() då jag 
-    ville att den dels skulle kunna lista alla medlemmar separerat med ett 
+    Detta gjorde att jag kunde bestämma om det skulle va ett ',' efter namnet eller 
+    om det skulle va ett &-tecken innan sista namnet. Jag valde även att göra så 
+    att programmet bytte till en ny rad efter att 8 namn skrivits ut så att texten
+    inte stack iväg alldeles för långt åt höger. Jag använde mig av två metoder 
+    för att göra allt detta. Den första heter ListMembers() som skriver ut lite 
+    text till skärmen och sedan i sin tur anropar ShowMembers() som skriver ut 
+    alla gruppmedlemmar. Jag gjorde en överlagring på metoden ShowMembers() då 
+    jag ville att den dels skulle kunna lista alla medlemmar separerat med ett 
     kommatecken men också senare lista alla medlemmar med en siffra framför.
 
     Andra delen var att låta användaren få ut detaljerad information om en 
@@ -82,17 +81,17 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
     den gruppmedlem som valdes som i sin tur skrev ut informationen. Denna del 
     kördes sedan ända tills användaren valde att återgå till huvudmenyn igen.
 
-    Tredje delen var att ta bort en medlem. För detta använde jag en metod, 
-    RemoveMember() visade alla medlemmar med hjälp av ShowMembers(). Sedan fick
-    användaren välja vilken medlem som skulle tas bort och den medlemmen togs 
-    sedan bort från listan med hjälp av hjälpmetoden RemoveAt().
-
     Sedan valde jag att lägga till en egen del som gav användaren möjligheten 
     att lägga till en medlem i gruppen. Detta gjorde jag genom att användaren 
     fick mata in alla värden för medlemmen. Sedan sparades detta i textfilen 
     tillsammans med alla andra medlemmar så att den fanns kvar även om programmet 
-    stängdes ned och startades om. Detta gjorde jag med hjälp av ... och jag 
-    lade allt detta i en metod som jag döpte till CreateMember().
+    stängdes ned och startades om. Detta gjorde jag med hjälp av File.WriteAllLines().
+    Jag lade allt detta i en metod som jag döpte till CreateMember().
+    
+    Fjärde delen var att ta bort en medlem. För detta skapade jag en metod, 
+    RemoveMember() som först visade alla medlemmar med hjälp av ShowMembers(). 
+    Sedan fick användaren välja vilken medlem som skulle tas bort och den medlemmen
+    togs sedan bort från listan med hjälp av metoden RemoveAt().
 
     Sista delen var att avsluta programmet och detta gjorde jag genom att skapa 
     metoden ExitProgram(). Här skrevs en avslutande text ut til skärmen och 
@@ -101,10 +100,10 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
 
 - Namngivning
     När det kommer till namngivning använde jag mig av camelCase för alla variabler
-    och PascalCase för metoder och klasser. Jag använde enbart engelska ord som 
-    variabelnamen och jag försökte vara så beskrivande som jag bara kunde så att 
-    namnen tydligt indikerade vad de var till för såsom metoden WriteSomethingInGreen() 
-    som skrev ut ett meddelande i grön text.
+    och PascalCase för metoder och klasser. Jag använde enbart engelska variabelnamn 
+    och jag försökte vara så beskrivande som jag bara kunde så att namnen tydligt 
+    skulle indikera vad de var till för såsom metoden WriteSomethingInGreen() som 
+    skriver ut ett meddelande i grön text.
 
 - Saker jag kunde gjort annorlunda
     Vissa metoder hade jag kunnat bryta ut och lagt i en egen klass istället för 
@@ -119,12 +118,8 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
     in lite vad som helst på varje fält. Detta skulle jag kunnat gjort mer 
     utförligt. Koden för hur metoden avbryts om användaren väljer att avbryta
     är inte heller den bästa med mycket copy-paste och jag är inte helt DRY där.
-    Det är också något jag kunde gjort bättre.
-
-    Det finns säkert många fler saker som jag hade kunnat gjort annorlunda eller 
-    på ett bättre sätt som jag bara inte lärt mig än. Det ska bli kul att gå 
-    tillbaka till den här uppgiften om två år och jämföra med de kunskaper och 
-    erfarenheter jag då har samlat på mig och se vad jag kommer vilja ändra på.
+    Det är också något jag kunde gjort bättre även om jag försökte skapa två
+    metoder för att minska ner på allt copy-paste.
 
 - Övrigt
     När det gäller for- och foreach-loopar valde jag att använda båda för att 
@@ -135,16 +130,16 @@ Rapport inlämningsuppgift 2 - Objektorienterad prorammering i C# - av David Str
     men när man behöver lite mer kontroll på var i listan man befinner sig är
     en for-loop så mycket bättre. Visst du kan skapa upp en räknare som håller 
     koll åt dig i en foreach-loop men med en for-loop har du redan det i och med
-    'i' (eller vad man nu vill döpa den till) som hela tiden inkrementeras för 
-    varje vända.
+    'i' (eller vad man nu vill döpa sin variabel till) som hela tiden inkrementeras 
+    för varje vända.
 
-    Jag lade till två metoder som bara fanns till för ett estetiskt syfte. Ena 
+    Jag lade till två metoder som bara är till för ett estetiskt syfte. Ena 
     metoden WriteSomethingInGreen() skrev ut meddelandet som skickades med som 
     argument i grönt och den andra WriteSomethingInRed() skrev ut meddelandet 
-    i röd text.
+    i rött.
 
     Till sist lade jag till lite rubriker med hjälp av en ASCII Art Generator
-    Vilken gjorde programmet lite roligare att titta på. Jag hade säkert kunnat
+    vilken gjorde programmet lite roligare att titta på. Jag hade säkert kunnat
     sparat rubrikerna i en textfil och sedan läst in dem i programmet därifrån
     istället för att hårdkoda dem, men jag var var inte helt säker på hur jag 
     skulle göra det på ett smidigt sätt så det blev såhär istället.

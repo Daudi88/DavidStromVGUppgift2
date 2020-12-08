@@ -15,14 +15,13 @@ namespace DavidStrömVGUppgift2
         static string path = Path.Combine(Environment.CurrentDirectory, "members.txt");
         static List<string> lines = new List<string>();
         static List<Member> group = new List<Member>();
-        static readonly int time = 2000;
+        static readonly int timeToSleep = 2000;
         static bool exit = false;
 
         //Här är den första metoden som körs.
         static void Main(string[] args)
         {
             Login();
-            Run();
         }
 
         //Detta är en metod som hanterar inloggningen till programmet.
@@ -70,7 +69,7 @@ namespace DavidStrömVGUppgift2
                 if (userInput == password)
                 {
                     WriteSomethingInGreen("\n\tKorrekt! Du angav rätt kod!");
-                    break;
+                    Run();
                 }
                 else if (userInput == "")
                 {
@@ -82,16 +81,14 @@ namespace DavidStrömVGUppgift2
                     ctr++;
                     if (ctr > 2)
                     {
-                        WriteSomethingInRed("\n\tDu har matat in fel lösenord för många gånger." +
-                            "\n\tDu måste vänta lite innan du försöker igen.");
-                        Thread.Sleep(time * 5);
-                        ctr = 0;
+                        WriteSomethingInRed("\n\tDu har matat in fel lösenord för många gånger.\n");
+                        ExitProgram();
                     }
                     else
                         WriteSomethingInRed("\n\tFel kod! Försök igen...");
                     Console.Clear();
                 }
-            } while (true);
+            } while (!exit);
         }
 
         //Här är en metod som styr hela programmet när man väl loggat in.
@@ -229,7 +226,7 @@ namespace DavidStrömVGUppgift2
 
                 //Här bryter vi till en ny rad efter att halva gruppens
                 //medlemmar har skrivits ut.
-                if (ctr > 4)
+                if (ctr > 3)
                 {
                     Console.Write("\n\t");
                     ctr = 0;
@@ -437,15 +434,15 @@ namespace DavidStrömVGUppgift2
                     do
                     {
                         Console.Clear();
-                        Console.WriteLine($"\n\t1. Förnamn: {group[member].FirstName}");
-                        Console.WriteLine($"\t2. Efternamn: {group[member].LastName}");
-                        Console.WriteLine($"\t3. Längd: {group[member].Height}");
-                        Console.WriteLine($"\t4. Ålder: {group[member].Age}");
-                        Console.WriteLine($"\t5. Hobby: {group[member].Hobby}");
-                        Console.WriteLine($"\t6. Favoriträtt: {group[member].FavoriteFood}");
-                        Console.WriteLine($"\t7. Favoritfärg: {group[member].FavoriteColor}");
-                        Console.WriteLine($"\t8. Motivation till programmering: {group[member].Motivation}");
-                        Console.WriteLine($"\t9. Hemort: {group[member].HomeTown}");
+                        Console.WriteLine($"\n\t 1. Förnamn: {group[member].FirstName}");
+                        Console.WriteLine($"\t 2. Efternamn: {group[member].LastName}");
+                        Console.WriteLine($"\t 3. Längd: {group[member].Height}");
+                        Console.WriteLine($"\t 4. Ålder: {group[member].Age}");
+                        Console.WriteLine($"\t 5. Hobby: {group[member].Hobby}");
+                        Console.WriteLine($"\t 6. Favoriträtt: {group[member].FavoriteFood}");
+                        Console.WriteLine($"\t 7. Favoritfärg: {group[member].FavoriteColor}");
+                        Console.WriteLine($"\t 8. Motivation till programmering: {group[member].Motivation}");
+                        Console.WriteLine($"\t 9. Hemort: {group[member].HomeTown}");
                         Console.WriteLine($"\t10. Födelseort: {group[member].Birthplace}");
                         Console.WriteLine($"\t11. Syskon: {group[member].Siblings}");
                         Console.WriteLine($"\t12. Kön: {group[member].Gender}");
@@ -457,7 +454,7 @@ namespace DavidStrömVGUppgift2
                             switch (choice)
                             {
                                 case 1:
-                                    string firstName = Assign("\n\tFörnamn: ");
+                                    string firstName = Assign("\tFörnamn: ");
                                     if (!Validate(firstName))
                                     {
                                         WriteSomethingInRed("\tÅtgärden avbryts...");
@@ -659,7 +656,7 @@ namespace DavidStrömVGUppgift2
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(message);
             Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(time / 2);
+            Thread.Sleep(timeToSleep / 2);
         }
 
         //Här är en metod som skriver utt ett meddelande i röd text till skärmen.
@@ -670,7 +667,7 @@ namespace DavidStrömVGUppgift2
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(message);
             Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(time);
+            Thread.Sleep(timeToSleep);
         }
     }
 }

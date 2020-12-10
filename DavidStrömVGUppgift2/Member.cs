@@ -66,18 +66,18 @@ namespace DavidStrömVGUppgift2
         public void Describe()
         {
             string pronoun = "";
-            if (gender == "man")
+            if (gender == "Man")
                 pronoun = "han";
             else
                 pronoun = "hon";
 
             Console.WriteLine($"\n\tDetta är {firstName} {lastName}.\n");
             Console.WriteLine($"\t{firstName} är {age} år gammal, {height} cm lång och " +
-                $"{pronoun} har {hobby} som hobby.");
-            Console.WriteLine($"\tNär det kommer till favoriter har {firstName} {favoriteFood} " +
-                $"som favoriträtt och favoritfärgen är {favoriteColor}.");
+                $"{pronoun} har {siblings} syskon.");
+            Console.WriteLine($"\tNär det kommer till favoriter har {firstName} {favoriteFood.ToLower()} " +
+                $"som favoriträtt och favoritfärgen är {favoriteColor.ToLower()}.");
             Console.WriteLine($"\tMotivationen till programering för {firstName} är " +
-                $"{motivation}.");
+                $"{motivation.ToLower()}.");
             if (homeTown.EndsWith('ö'))
                 Console.WriteLine($"\t{firstName} föddes i {birthplace} och nu bor {pronoun} " +
                 $"på {homeTown}.");
@@ -85,7 +85,7 @@ namespace DavidStrömVGUppgift2
                 Console.WriteLine($"\t{firstName} föddes i {birthplace} och nu bor {pronoun} " +
                     $"i {homeTown}.");
             Console.WriteLine($"\tSista delen information om {firstName} är att {pronoun} har" +
-                $" {siblings} syskon.");
+                $" {hobby.ToLower()} som hobby.");
             Console.Write("\n\tTryck på valfri tangent för att fortsätta...");
         }
 

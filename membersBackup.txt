@@ -1,8 +1,9 @@
-Elin, 170, 31, hästar, sushi, röd, personliga utveckling, Knivsta, Karlskoga, 2, kvinna
-Cecilia, 163, 29, The Sims, risotto, gul, kreativitet, Norrköping, Norrköping, 1, kvinna
-Jeremy, 181, 19, gaming, älggryta, teal, att få ett jobb, Djurö, Köln, 1, man
-Sanjin, 179, 30, fotboll, pizza, blå, att få ett jobb, Norrköping, Mostar, 2, man
-Oscar, 185, 26, fotboll, lasagne, blå, att få ett jobb, Stockholm, Stockholm, 1, man
-Johan, 194, 34, gaming, tacos, blå, en trygg framtid, Mariefred, Mariefred, 2, man
-David, 183, 32, Gracie Jiu-Jitsu, tacos, blå, problemlösning, Norrtälje, Göteborg, 1, man
-Ivo, 174, 42, fotografering, scampi, svart, kreativitet, Uppsala, Split, 1, man
+Cecilia, Nilsson, 163, 29, The Sims, Risotto, Gul, Kreativitet, Norrköping, Norrköping, 1, Kvinna
+David, Ström, 183, 32, Gracie Jiu-Jitsu, Tacos, Blå, Problemlösning, Norrtälje, Göteborg, 1, Man
+Elin, Bjurenhed, 170, 31, Hästar, Sushi, Röd, Personliga utveckling, Knivsta, Karlskoga, 2, Kvinna
+Johan, Jangerud, 194, 34, Gaming, Tacos, Blå, Trygg framtid, Mariefred, Mariefred, 2, Man
+Oscar, Möller, 185, 26, Fotboll, Lasagne, Blå, Jobb, Stockholm, Stockholm, 1, Man
+Mostafa, Shubber, 174, 33, Träning, Oxfile, Svart, Tycker om att koda och lösa problem, Stockholm, Stockholm, 4, Man
+Ivo, Nazlic, 174, 42, Fotografi, Scampi, Svart, Kreativitet, Uppsala, Split, 1, Man
+Jeremy, Matthiessen, 181, 19, Gaming, Älggryta, Teal, Jobb, Djurö, Köln, 1, Man
+Sanjin, Ajanic, 179, 30, Fotboll, Pizza, Blå, Jobb, Norrköping, Mostar, 2, Man

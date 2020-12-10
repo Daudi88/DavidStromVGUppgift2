@@ -15,7 +15,7 @@
 5.	Tillsammans med projektet skall en rapport lämnas in. Denna skall innehålla 
     en beskrivande text på hur ni tog ovan problem och bröt ner det till mindre 
     delar. Zippa ihop allt och döp mappen till ert namn samt betygen ni siktar 
-    på för denna inläming. Tex RobinKamoVGUppgift2
+    på för denna inläming. Tex RobinKamoVGUppgift2 ✔️
 
 6.	För betyget VG; Redogör mer ingående om programmet. Ex ✔️
     a.	Varför valde du att göra som du gjorde? ✔️

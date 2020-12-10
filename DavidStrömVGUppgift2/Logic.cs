@@ -1,0 +1,128 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace DavidStrömVGUppgift2
+{
+    class Logic
+    {
+        static List<Member> members = new List<Member>();
+        static bool exit = false;
+
+        //Detta är en metod som hanterar inloggningen till programmet.
+        public static void Login()
+        {
+            Console.Title = "Bästkusten";
+            int ctr = 0;
+            do
+            {
+                //Här körs en loop där varje tangenttryck registreras och läggs
+                //till i strängen password, men det som syns är bara asterisker.
+                string userInput = "";
+                Console.WriteLine(@"         ____  _   _     _   _              _");
+                Console.WriteLine(@"        |  _ \(_) (_)   | | | |            | |");
+                Console.WriteLine(@"        | |_) | __ _ ___| |_| | ___   _ ___| |_ ___ _ __");
+                Console.WriteLine(@"        |  _ < / _` / __| __| |/ / | | / __| __/ _ \ '_ \");
+                Console.WriteLine(@"        | |_) | (_| \__ \ |_|   <| |_| \__ \ ||  __/ | | |");
+                Console.WriteLine(@"        |____/ \__,_|___/\__|_|\_\\__,_|___/\__\___|_| |_|");
+                Console.WriteLine("\n\tVälkommen till Bästkusten!");
+                Console.Write("\tAnge lösenordet: ");
+                ConsoleKey key;
+                do
+                {
+                    //Varje knapptryck sparas i keyInfo men syns inte på skärmen.
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    key = keyInfo.Key;
+                    if (key == ConsoleKey.Backspace && userInput.Length > 0)
+                    {
+                        //Om man trycker Backspace raderas asterisken från skärmen
+                        //och tecknet som tidigare sparats i password tas bort.
+                        Console.Write("\b \b");
+                        userInput = userInput[0..^1];
+                    }
+                    else if (!char.IsControl(keyInfo.KeyChar))
+                    {
+                        //Här skrivs en asterisk ut till skärmen och knapptrycket
+                        //sparas till password.
+                        Console.Write("*");
+                        userInput += keyInfo.KeyChar;
+                    }
+                    //loopen körs så länge man inte trycker på Enter.
+                } while (key != ConsoleKey.Enter);
+
+                string password = "Bästkusten";
+                if (userInput == password)
+                {
+                    Print.InGreen("\n\tKorrekt! Du angav rätt kod!");
+                    Run();
+                }
+                else if (userInput == "")
+                {
+                    Print.InGreen("Tips, lösenordet är basgruppens namn");
+                    Console.Clear();
+                }
+                else
+                {
+                    ctr++;
+                    if (ctr > 2)
+                    {
+                        Print.InRed("\n\tDu har matat in fel lösenord för många gånger.\n");
+                        ExitProgram();
+                    }
+                    else
+                        Print.InRed("\n\tFel kod! Försök igen...");
+                    Console.Clear();
+                }
+            } while (!exit);
+        }
+
+        //Här är en metod som styr hela programmet när man väl loggat in.
+        //Metoden körs tills användaren väljer att avsluta.
+        static void Run()
+        {
+            List<Member> members = CRUD.Read();
+            do
+            {
+                Print.Menu();
+                int.TryParse(Console.ReadLine(), out int choice);
+                switch (choice)
+                {
+                    case 1:
+                        Print.Members(members);
+                        break;
+                    case 2:
+                        Print.Details();
+                        break;
+                    case 3:
+                        CRUD.Create(members);
+                        break;
+                    case 4:
+                        CRUD.Edit();
+                        break;
+                    case 5:
+                        CRUD.Delete();
+                        break;
+                    case 6:
+                        ExitProgram();
+                        break;
+                    default:
+                        Print.InRed("\tDu måste vålja mellan 1-4...");
+                        break;
+                }
+            } while (!exit);
+        }
+
+        //Här är en metod som avslutar programmet.
+        static void ExitProgram()
+        {
+            //Här sätts exit till true och ett avslutande meddelande skrivs ut
+            //med lite visuell effekt som får det att se ut som att datorn tänker.
+            exit = true;
+            Print.InGreen("\tProgrammet avslutas");
+            for (int i = 0; i < 3; i++)
+            {
+                Print.InGreen(".");
+            }
+        }
+    }
+}

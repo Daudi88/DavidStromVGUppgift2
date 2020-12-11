@@ -6,7 +6,6 @@ namespace DavidStrömVGUppgift2
 {
     class Logic
     {
-        static List<Member> members = new List<Member>();
         static bool exit = false;
 
         //Detta är en metod som hanterar inloggningen till programmet.
@@ -80,9 +79,9 @@ namespace DavidStrömVGUppgift2
         //Metoden körs tills användaren väljer att avsluta.
         static void Run()
         {
-            List<Member> members = CRUD.Read();
             do
             {
+                List<Member> members = CRUD.Read();
                 Print.Menu();
                 int.TryParse(Console.ReadLine(), out int choice);
                 switch (choice)
@@ -91,16 +90,16 @@ namespace DavidStrömVGUppgift2
                         Print.Members(members);
                         break;
                     case 2:
-                        Print.Details();
+                        Print.Details(members);
                         break;
                     case 3:
                         CRUD.Create(members);
                         break;
                     case 4:
-                        CRUD.Edit();
+                        CRUD.Edit(members);
                         break;
                     case 5:
-                        CRUD.Delete();
+                        CRUD.Delete(members);
                         break;
                     case 6:
                         ExitProgram();

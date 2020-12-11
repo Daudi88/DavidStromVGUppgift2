@@ -84,14 +84,14 @@ namespace DavidStrömVGUppgift2
             else
                 Console.WriteLine($"\t{firstName} föddes i {birthplace} och nu bor {pronoun} " +
                     $"i {homeTown}.");
-            Console.WriteLine($"\tSista delen information om {firstName} är att {pronoun} har" +
+            Console.WriteLine($"\tDet du kanske inte visste om {firstName} är att {pronoun} har" +
                 $" {hobby.ToLower()} som hobby.");
             Console.Write("\n\tTryck på valfri tangent för att fortsätta...");
         }
 
         public override string ToString()
         {
-            return "Detta är en gruppmedlem i basgruppen Bästkusten";
+            return firstName + " " + lastName;
         }
     }
 }

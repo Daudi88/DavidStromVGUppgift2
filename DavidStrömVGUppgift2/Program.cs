@@ -10,7 +10,5 @@ namespace DavidStrömVGUppgift2
         {
             Logic.Login();
         }
-
-        
     }
 }

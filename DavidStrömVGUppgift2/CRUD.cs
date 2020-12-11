@@ -180,7 +180,7 @@ namespace DavidStrömVGUppgift2
             Print.InGreen($"\t{firstName} {lastName} är nu tillagd.");
         }
 
-        public static void Edit()
+        public static void Edit(List<Member> members)
         {
             do
             {
@@ -192,14 +192,13 @@ namespace DavidStrömVGUppgift2
                 Console.WriteLine(@"        / ___ \| | | | (_| | | | (_| |");
                 Console.WriteLine(@"       /_/   \_\_| |_|\__,_|_|  \__,_|");
                 Console.WriteLine();
-                List<Member> members = Read();
                 Print.ListOfMembers(members);
                 Console.WriteLine("\n\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
                 Console.Write("\tVilken gruppmedlem vill du ändra på? ");
                 if (int.TryParse(Console.ReadLine(), out int choice))
                 {
                     int member = choice - 1;
-                    Print.InGreen($"\tDu har valt att ändra på {members[member].FirstName} {members[member].LastName}.");
+                    Print.InGreen($"\tDu har valt att ändra på {members[member].ToString()}.");
                     bool exit = false;
                     do
                     {
@@ -372,7 +371,7 @@ namespace DavidStrömVGUppgift2
         }
 
         //Här är en metod som låter användaren ta bort en gruppmedlem.
-        public static void Delete()
+        public static void Delete(List<Member> members)
         {
             do
             {
@@ -384,7 +383,6 @@ namespace DavidStrömVGUppgift2
                 Console.WriteLine(@"           | | (_| | | |_) | (_) | |  | |_");
                 Console.WriteLine(@"           |_|\__,_| |_.__/ \___/|_|   \__|");
                 Console.WriteLine();
-                List<Member> members = Read();
                 Print.ListOfMembers(members);
                 Console.WriteLine("\n\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
                 Console.Write("\tVilken gruppmedlem vill du ta bort? ");
@@ -392,18 +390,18 @@ namespace DavidStrömVGUppgift2
                 if (choice > 0 && choice <= members.Count)
                 {
                     int member = choice - 1;
-                    Console.Write($"\tVill du verkligen ta bort {members[member].FirstName} {members[member].LastName}? Y/N ");
+                    Console.Write($"\tVill du verkligen ta bort {members[member].ToString()}? Y/N ");
                     string decision = Console.ReadLine();
                     if (decision.ToLower().StartsWith('y'))
                     {
-                        Print.InGreen($"\t{members[member].FirstName} {members[member].LastName} är nu borttagen.");
+                        Print.InGreen($"\t{members[member].ToString()} är nu borttagen.");
                         members.RemoveAt(member);
                         lines.RemoveAt(member);
                         File.WriteAllLines(path, lines);
                         break;
                     }
                     else
-                        Print.InRed($"\t{members[member].FirstName} {members[member].LastName} är inte borttagen.");
+                        Print.InRed($"\t{members[member].ToString()} är inte borttagen.");
                     
                 }
                 //Om användaren matar in bokstäver eller bara trycker Enter 

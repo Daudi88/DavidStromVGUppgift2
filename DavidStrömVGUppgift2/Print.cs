@@ -39,7 +39,6 @@ namespace DavidStrömVGUppgift2
             Console.WriteLine(@"        | |  | |  __/ (_| | |  __/ | | | | | | | | | | (_| | |");
             Console.WriteLine(@"        |_|  |_|\___|\__,_|_|\___|_| |_| |_|_| |_| |_|\__,_|_|");
             Console.WriteLine();
-            members = members.OrderBy(m => m.FirstName).ToList();
             int ctr = 0;
             Console.Write("\t");
 
@@ -47,7 +46,7 @@ namespace DavidStrömVGUppgift2
             //kontrollera när &-teckenet ska skrivas ut.
             for (int i = 0; i < members.Count; i++)
             {
-                Console.Write($"{members[i].FirstName} {members[i].LastName}");
+                Console.Write(members[i].ToString());
 
                 //Här körs en if-sats för att se till att namnen skrivs ut på 
                 //ett snyggt sätt och att ett &-tecken skrivs ut innan sista namnet.
@@ -73,7 +72,7 @@ namespace DavidStrömVGUppgift2
 
         //Här är en metod som låter användaren få mer detaljer om en specifik
         //gruppmedlem.
-        public static void Details()
+        public static void Details(List<Member> members)
         {
             do
             {
@@ -86,14 +85,13 @@ namespace DavidStrömVGUppgift2
                 Console.WriteLine(@"        |_____/ \___|\__\__,_|_| |\___|_|");
                 Console.WriteLine(@"                              _/ |");
                 Console.WriteLine(@"                             |__/");
-                List<Member> members = CRUD.Read();
                 ListOfMembers(members);
                 Console.WriteLine("\n\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
                 Console.Write("\tVilken gruppmedlem vill du veta mer om? ");
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= members.Count)
                 {
-                    InGreen($"\tDu vill veta mer om {members[choice - 1].FirstName} {members[choice - 1].LastName}.");
+                    InGreen($"\tDu vill veta mer om {members[choice - 1].ToString()}.");
                     Console.Clear();
                     members[choice - 1].Describe();
                     Console.ReadKey(true);
@@ -111,10 +109,9 @@ namespace DavidStrömVGUppgift2
 
         public static void ListOfMembers(List<Member> members)
         {
-            members = members.OrderBy(m => m.FirstName).ToList();
             int ctr = 1;
             foreach (var member in members)
-                Console.WriteLine($"\t{ctr++}. {member.FirstName} {member.LastName}");
+                Console.WriteLine($"\t{ctr++}. {member.ToString()}");
         }
 
         //Här är en metod som skriver utt ett meddelande i grön text till skärmen.

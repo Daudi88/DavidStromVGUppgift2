@@ -79,81 +79,81 @@ namespace DavidStrömVGUppgift2
             string firstName = Assign("\n\tFörnamn: ");
             if (!Validate(firstName))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string lastName = Assign("\tEfternamn: ");
             if (!Validate(lastName))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             if (!int.TryParse(Assign("\tLängd: "), out int height))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             if (!int.TryParse(Assign("\tÅlder: "), out int age))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string hobby = Assign("\tHobby: ");
             if (!Validate(hobby))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string favoriteFood = Assign("\tFavoriträtt: ");
             if (!Validate(favoriteFood))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string favoriteColor = Assign("\tFavoritfärg: ");
             if (!Validate(favoriteColor))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string motivation = Assign("\tMotivation till programmering: ");
             if (!Validate(motivation))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string homeTown = Assign("\tHemort: ");
             if (!Validate(homeTown))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string birthplace = Assign("\tFödelseort: ");
             if (!Validate(birthplace))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             if (!int.TryParse(Assign("\tSyskon: "), out int siblings))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
             string gender = Assign("\tKön: ");
             if (!Validate(gender))
             {
-                Print.InRed("\tÅtgärden avbryts...");
+                Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
@@ -177,7 +177,7 @@ namespace DavidStrömVGUppgift2
             lines.Sort();
             File.WriteAllLines(path, lines);
 
-            Print.InGreen($"\t{firstName} {lastName} är nu tillagd.");
+            Print.TextInGreen($"\t{firstName} {lastName} är nu tillagd.");
         }
 
         public static void Edit(List<Member> members)
@@ -198,7 +198,7 @@ namespace DavidStrömVGUppgift2
                 if (int.TryParse(Console.ReadLine(), out int choice))
                 {
                     int member = choice - 1;
-                    Print.InGreen($"\tDu har valt att ändra på {members[member].ToString()}.");
+                    Print.TextInGreen($"\tDu har valt att ändra på {members[member].ToString()}.");
                     bool exit = false;
                     do
                     {
@@ -226,7 +226,7 @@ namespace DavidStrömVGUppgift2
                                     string firstName = Assign("\tFörnamn: ");
                                     if (!Validate(firstName))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -237,7 +237,7 @@ namespace DavidStrömVGUppgift2
                                     string lastName = Assign("\n\tEfternamn: ");
                                     if (!Validate(lastName))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -247,7 +247,7 @@ namespace DavidStrömVGUppgift2
                                 case 3:
                                     if (!int.TryParse(Assign("\tLängd: "), out int height))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -256,7 +256,7 @@ namespace DavidStrömVGUppgift2
                                 case 4:
                                     if (!int.TryParse(Assign("\tÅlder: "), out int age))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -266,7 +266,7 @@ namespace DavidStrömVGUppgift2
                                     string hobby = Assign("\tHobby: ");
                                     if (!Validate(hobby))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -277,7 +277,7 @@ namespace DavidStrömVGUppgift2
                                     string favoriteFood = Assign("\tFavoriträtt: ");
                                     if (!Validate(favoriteFood))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -288,7 +288,7 @@ namespace DavidStrömVGUppgift2
                                     string favoriteColor = Assign("\tFavoritfärg: ");
                                     if (!Validate(favoriteColor))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -299,7 +299,7 @@ namespace DavidStrömVGUppgift2
                                     string motivation = Assign("\tMotivation till programmering: ");
                                     if (!Validate(motivation))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -310,7 +310,7 @@ namespace DavidStrömVGUppgift2
                                     string homeTown = Assign("\tHemort: ");
                                     if (!Validate(homeTown))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -321,7 +321,7 @@ namespace DavidStrömVGUppgift2
                                     string birthplace = Assign("\tFödelseort: ");
                                     if (!Validate(birthplace))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -331,7 +331,7 @@ namespace DavidStrömVGUppgift2
                                 case 11:
                                     if (!int.TryParse(Assign("\tSyskon: "), out int siblings))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -341,7 +341,7 @@ namespace DavidStrömVGUppgift2
                                     string gender = Assign("\tKön: ");
                                     if (!Validate(gender))
                                     {
-                                        Print.InRed("\tÅtgärden avbryts...");
+                                        Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
                                     }
                                     else
@@ -349,7 +349,7 @@ namespace DavidStrömVGUppgift2
                                             + gender.Substring(1).ToLower();
                                     break;
                                 default:
-                                    Print.InRed($"\n\tDu måste ange en siffra mellan 1 och 12...");
+                                    Print.TextInRed($"\n\tDu måste ange en siffra mellan 1 och 12...");
                                     break;
                             };
                         }
@@ -394,28 +394,28 @@ namespace DavidStrömVGUppgift2
                     string decision = Console.ReadLine();
                     if (decision.ToLower().StartsWith('y'))
                     {
-                        Print.InGreen($"\t{members[member].ToString()} är nu borttagen.");
+                        Print.TextInGreen($"\t{members[member].ToString()} är nu borttagen.");
                         members.RemoveAt(member);
                         lines.RemoveAt(member);
                         File.WriteAllLines(path, lines);
                         break;
                     }
                     else
-                        Print.InRed($"\t{members[member].ToString()} är inte borttagen.");
+                        Print.TextInRed($"\t{members[member].ToString()} är inte borttagen.");
                     
                 }
                 //Om användaren matar in bokstäver eller bara trycker Enter 
                 //kommer UserChoice returnera 0 och då bryter vi oss ut ur loopen.
                 else if (choice == 0)
                 {
-                    Print.InRed("\tÅtgärden avbryts...");
+                    Print.TextInRed("\tÅtgärden avbryts...");
                     break;
                 }
                 //Om användaren matar in en siffra som ligger utanför ramen av 
                 //listan skrivs ett felmeddelande ut
                 else
                 {
-                    Print.InRed($"\n\tDu måste ange en siffra mellan 1 och {members.Count}...");
+                    Print.TextInRed($"\n\tDu måste ange en siffra mellan 1 och {members.Count}...");
                 }
             } while (true);
         }

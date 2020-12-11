@@ -52,12 +52,12 @@ namespace DavidStrömVGUppgift2
                 string password = "Bästkusten";
                 if (userInput == password)
                 {
-                    Print.InGreen("\n\tKorrekt! Du angav rätt kod!");
+                    Print.TextInGreen("\n\tKorrekt! Du angav rätt kod!");
                     Run();
                 }
                 else if (userInput == "")
                 {
-                    Print.InGreen("Tips, lösenordet är basgruppens namn");
+                    Print.TextInGreen("Tips, lösenordet är basgruppens namn");
                     Console.Clear();
                 }
                 else
@@ -65,11 +65,11 @@ namespace DavidStrömVGUppgift2
                     ctr++;
                     if (ctr > 2)
                     {
-                        Print.InRed("\n\tDu har matat in fel lösenord för många gånger.\n");
+                        Print.TextInRed("\n\tDu har matat in fel lösenord för många gånger.\n");
                         ExitProgram();
                     }
                     else
-                        Print.InRed("\n\tFel kod! Försök igen...");
+                        Print.TextInRed("\n\tFel kod! Försök igen...");
                     Console.Clear();
                 }
             } while (!exit);
@@ -105,7 +105,7 @@ namespace DavidStrömVGUppgift2
                         ExitProgram();
                         break;
                     default:
-                        Print.InRed("\tDu måste vålja mellan 1-4...");
+                        Print.TextInRed("\tDu måste vålja mellan 1-4...");
                         break;
                 }
             } while (!exit);
@@ -117,10 +117,10 @@ namespace DavidStrömVGUppgift2
             //Här sätts exit till true och ett avslutande meddelande skrivs ut
             //med lite visuell effekt som får det att se ut som att datorn tänker.
             exit = true;
-            Print.InGreen("\tProgrammet avslutas");
+            Print.TextInGreen("\tProgrammet avslutas");
             for (int i = 0; i < 3; i++)
             {
-                Print.InGreen(".");
+                Print.TextInGreen(".");
             }
         }
     }

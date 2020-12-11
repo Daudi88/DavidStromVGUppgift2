@@ -91,7 +91,7 @@ namespace DavidStrömVGUppgift2
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= members.Count)
                 {
-                    InGreen($"\tDu vill veta mer om {members[choice - 1].ToString()}.");
+                    TextInGreen($"\tDu vill veta mer om {members[choice - 1].ToString()}.");
                     Console.Clear();
                     members[choice - 1].Describe();
                     Console.ReadKey(true);
@@ -103,7 +103,7 @@ namespace DavidStrömVGUppgift2
                 //Om användaren matar in en siffra som ligger utanför ramen av 
                 //listan skrivs ett felmeddelande ut
                 else
-                    Print.InRed($"\n\tDu måste ange en siffra mellan 1 och {members.Count}...");
+                    Print.TextInRed($"\n\tDu måste ange en siffra mellan 1 och {members.Count}...");
             } while (true);
         }
 
@@ -115,7 +115,7 @@ namespace DavidStrömVGUppgift2
         }
 
         //Här är en metod som skriver utt ett meddelande i grön text till skärmen.
-        public static void InGreen(string message)
+        public static void TextInGreen(string message)
         {
             //Först sätts textfärgen till grön. Sedan skrivs meddelandet ut.
             //Efter det sätts textfärgen tillbaks till vit igen.
@@ -128,7 +128,7 @@ namespace DavidStrömVGUppgift2
         }
 
         //Här är en metod som skriver utt ett meddelande i röd text till skärmen.
-        public static void InRed(string message)
+        public static void TextInRed(string message)
         {
             //Först sätts textfärgen till röd. Sedan skrivs meddelandet ut.
             //Efter det sätts textfärgen tillbaks till vit igen.

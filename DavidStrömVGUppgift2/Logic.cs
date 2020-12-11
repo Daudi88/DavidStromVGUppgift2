@@ -81,25 +81,25 @@ namespace DavidStrömVGUppgift2
         {
             do
             {
-                List<Member> members = CRUD.Read();
-                Print.Menu();
+                List<Member> members = CRUD.ReadFromTextFile();
+                Print.MainMenu();
                 int.TryParse(Console.ReadLine(), out int choice);
                 switch (choice)
                 {
                     case 1:
-                        Print.Members(members);
+                        Print.ShowMembers(members);
                         break;
                     case 2:
-                        Print.Details(members);
+                        Print.MemberDetails(members);
                         break;
                     case 3:
-                        CRUD.Create(members);
+                        CRUD.CreateNewMember(members);
                         break;
                     case 4:
-                        CRUD.Edit(members);
+                        CRUD.EditMember(members);
                         break;
                     case 5:
-                        CRUD.Delete(members);
+                        CRUD.DeleteMember(members);
                         break;
                     case 6:
                         ExitProgram();

@@ -11,7 +11,7 @@ namespace DavidStrömVGUppgift2
         static List<string> lines = new List<string>();
 
         //Här är en metod som lägger till alla gruppmedlemmar i en lista.
-        public static List<Member> Read()
+        public static List<Member> ReadFromTextFile()
         {
             lines = File.ReadAllLines(path).ToList();
             List<Member> members = new List<Member>();
@@ -32,7 +32,7 @@ namespace DavidStrömVGUppgift2
                     string birthplace = member[9].Trim();
                     int.TryParse(member[10], out int siblings);
                     string gender = member[11].Trim();
-                    AddMember(members, firstName, lastName, height, age, hobby, favoriteFood, favoriteColor,
+                    AddMemberToList(members, firstName, lastName, height, age, hobby, favoriteFood, favoriteColor,
                         motivation, homeTown, birthplace, siblings, gender);
                 }
             }
@@ -40,7 +40,7 @@ namespace DavidStrömVGUppgift2
         }
 
         //Här är en metod som lägger till en gruppmedlem i listan group.
-        public static void AddMember(
+        public static void AddMemberToList(
             List<Member> members,
             string firstName,
             string lastName,
@@ -61,7 +61,7 @@ namespace DavidStrömVGUppgift2
         }
 
         //Här är en metod som lägger till en gruppmedlem.
-        public static void Create(List<Member> members)
+        public static void CreateNewMember(List<Member> members)
         {
             Console.Clear();
             Console.WriteLine(@"         _     _   _                     _   _ _ _ ");
@@ -76,82 +76,82 @@ namespace DavidStrömVGUppgift2
                 "den nya gruppmedlemmen.");
             Console.WriteLine("\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
 
-            string firstName = Assign("\n\tFörnamn: ");
-            if (!Validate(firstName))
+            string firstName = AssignValue("\n\tFörnamn: ");
+            if (!ValidateValue(firstName))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string lastName = Assign("\tEfternamn: ");
-            if (!Validate(lastName))
+            string lastName = AssignValue("\tEfternamn: ");
+            if (!ValidateValue(lastName))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            if (!int.TryParse(Assign("\tLängd: "), out int height))
+            if (!int.TryParse(AssignValue("\tLängd: "), out int height))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            if (!int.TryParse(Assign("\tÅlder: "), out int age))
+            if (!int.TryParse(AssignValue("\tÅlder: "), out int age))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string hobby = Assign("\tHobby: ");
-            if (!Validate(hobby))
+            string hobby = AssignValue("\tHobby: ");
+            if (!ValidateValue(hobby))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string favoriteFood = Assign("\tFavoriträtt: ");
-            if (!Validate(favoriteFood))
+            string favoriteFood = AssignValue("\tFavoriträtt: ");
+            if (!ValidateValue(favoriteFood))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string favoriteColor = Assign("\tFavoritfärg: ");
-            if (!Validate(favoriteColor))
+            string favoriteColor = AssignValue("\tFavoritfärg: ");
+            if (!ValidateValue(favoriteColor))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string motivation = Assign("\tMotivation till programmering: ");
-            if (!Validate(motivation))
+            string motivation = AssignValue("\tMotivation till programmering: ");
+            if (!ValidateValue(motivation))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string homeTown = Assign("\tHemort: ");
-            if (!Validate(homeTown))
+            string homeTown = AssignValue("\tHemort: ");
+            if (!ValidateValue(homeTown))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string birthplace = Assign("\tFödelseort: ");
-            if (!Validate(birthplace))
+            string birthplace = AssignValue("\tFödelseort: ");
+            if (!ValidateValue(birthplace))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            if (!int.TryParse(Assign("\tSyskon: "), out int siblings))
+            if (!int.TryParse(AssignValue("\tSyskon: "), out int siblings))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
             }
 
-            string gender = Assign("\tKön: ");
-            if (!Validate(gender))
+            string gender = AssignValue("\tKön: ");
+            if (!ValidateValue(gender))
             {
                 Print.TextInRed("\tÅtgärden avbryts...");
                 return;
@@ -167,7 +167,7 @@ namespace DavidStrömVGUppgift2
             birthplace = char.ToUpper(birthplace[0]) + birthplace.Substring(1).ToLower();
             gender = char.ToUpper(gender[0]) + gender.Substring(1).ToLower();
 
-            AddMember(members, firstName, lastName, height, age, hobby, favoriteFood, favoriteColor,
+            AddMemberToList(members, firstName, lastName, height, age, hobby, favoriteFood, favoriteColor,
                 motivation, homeTown, birthplace, siblings, gender);
 
             string line = $"{firstName}, {lastName}, {height}, {age}, {hobby}, {favoriteFood}, {favoriteColor}, " +
@@ -180,7 +180,7 @@ namespace DavidStrömVGUppgift2
             Print.TextInGreen($"\t{firstName} {lastName} är nu tillagd.");
         }
 
-        public static void Edit(List<Member> members)
+        public static void EditMember(List<Member> members)
         {
             do
             {
@@ -223,8 +223,8 @@ namespace DavidStrömVGUppgift2
                             switch (choice)
                             {
                                 case 1:
-                                    string firstName = Assign("\tFörnamn: ");
-                                    if (!Validate(firstName))
+                                    string firstName = AssignValue("\tFörnamn: ");
+                                    if (!ValidateValue(firstName))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -234,8 +234,8 @@ namespace DavidStrömVGUppgift2
                                             + firstName.Substring(1).ToLower();
                                     break;
                                 case 2:
-                                    string lastName = Assign("\n\tEfternamn: ");
-                                    if (!Validate(lastName))
+                                    string lastName = AssignValue("\n\tEfternamn: ");
+                                    if (!ValidateValue(lastName))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -245,7 +245,7 @@ namespace DavidStrömVGUppgift2
                                             + lastName.Substring(1).ToLower();
                                     break;
                                 case 3:
-                                    if (!int.TryParse(Assign("\tLängd: "), out int height))
+                                    if (!int.TryParse(AssignValue("\tLängd: "), out int height))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -254,7 +254,7 @@ namespace DavidStrömVGUppgift2
                                         members[member].Height = height;
                                     break;
                                 case 4:
-                                    if (!int.TryParse(Assign("\tÅlder: "), out int age))
+                                    if (!int.TryParse(AssignValue("\tÅlder: "), out int age))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -263,8 +263,8 @@ namespace DavidStrömVGUppgift2
                                         members[member].Age = age;
                                     break;
                                 case 5:
-                                    string hobby = Assign("\tHobby: ");
-                                    if (!Validate(hobby))
+                                    string hobby = AssignValue("\tHobby: ");
+                                    if (!ValidateValue(hobby))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -274,8 +274,8 @@ namespace DavidStrömVGUppgift2
                                             + hobby.Substring(1).ToLower();
                                     break;
                                 case 6:
-                                    string favoriteFood = Assign("\tFavoriträtt: ");
-                                    if (!Validate(favoriteFood))
+                                    string favoriteFood = AssignValue("\tFavoriträtt: ");
+                                    if (!ValidateValue(favoriteFood))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -285,8 +285,8 @@ namespace DavidStrömVGUppgift2
                                             + favoriteFood.Substring(1).ToLower();
                                     break;
                                 case 7:
-                                    string favoriteColor = Assign("\tFavoritfärg: ");
-                                    if (!Validate(favoriteColor))
+                                    string favoriteColor = AssignValue("\tFavoritfärg: ");
+                                    if (!ValidateValue(favoriteColor))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -296,8 +296,8 @@ namespace DavidStrömVGUppgift2
                                             + favoriteColor.Substring(1).ToLower();
                                     break;
                                 case 8:
-                                    string motivation = Assign("\tMotivation till programmering: ");
-                                    if (!Validate(motivation))
+                                    string motivation = AssignValue("\tMotivation till programmering: ");
+                                    if (!ValidateValue(motivation))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -307,8 +307,8 @@ namespace DavidStrömVGUppgift2
                                             + motivation.Substring(1).ToLower();
                                     break;
                                 case 9:
-                                    string homeTown = Assign("\tHemort: ");
-                                    if (!Validate(homeTown))
+                                    string homeTown = AssignValue("\tHemort: ");
+                                    if (!ValidateValue(homeTown))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -318,8 +318,8 @@ namespace DavidStrömVGUppgift2
                                             + homeTown.Substring(1).ToLower();
                                     break;
                                 case 10:
-                                    string birthplace = Assign("\tFödelseort: ");
-                                    if (!Validate(birthplace))
+                                    string birthplace = AssignValue("\tFödelseort: ");
+                                    if (!ValidateValue(birthplace))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -329,7 +329,7 @@ namespace DavidStrömVGUppgift2
                                             + birthplace.Substring(1).ToLower();
                                     break;
                                 case 11:
-                                    if (!int.TryParse(Assign("\tSyskon: "), out int siblings))
+                                    if (!int.TryParse(AssignValue("\tSyskon: "), out int siblings))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -338,8 +338,8 @@ namespace DavidStrömVGUppgift2
                                         members[member].Siblings = siblings;
                                     break;
                                 case 12:
-                                    string gender = Assign("\tKön: ");
-                                    if (!Validate(gender))
+                                    string gender = AssignValue("\tKön: ");
+                                    if (!ValidateValue(gender))
                                     {
                                         Print.TextInRed("\tÅtgärden avbryts...");
                                         exit = true;
@@ -371,7 +371,7 @@ namespace DavidStrömVGUppgift2
         }
 
         //Här är en metod som låter användaren ta bort en gruppmedlem.
-        public static void Delete(List<Member> members)
+        public static void DeleteMember(List<Member> members)
         {
             do
             {
@@ -420,13 +420,13 @@ namespace DavidStrömVGUppgift2
             } while (true);
         }
 
-        static string Assign(string message)
+        static string AssignValue(string message)
         {
             Console.Write(message);
             return Console.ReadLine();
         }
 
-        static bool Validate(string str)
+        static bool ValidateValue(string str)
         {
             if (str == "")
                 return false;

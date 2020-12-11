@@ -8,7 +8,7 @@ namespace DavidStrömVGUppgift2
     class Print
     {
         //Här är en metod som skriver ut menyn till skärmen.
-        public static void Menu()
+        public static void MainMenu()
         {
             Console.Clear();
             Console.WriteLine(@"         _    _                       _");
@@ -29,7 +29,7 @@ namespace DavidStrömVGUppgift2
         }
 
         //Här är en metod som skriver ut alla gruppmedlemmar till skärmen.
-        public static void Members(List<Member> members)
+        public static void ShowMembers(List<Member> members)
         {
             Console.Clear();
             Console.WriteLine(@"         __  __          _ _");
@@ -72,7 +72,7 @@ namespace DavidStrömVGUppgift2
 
         //Här är en metod som låter användaren få mer detaljer om en specifik
         //gruppmedlem.
-        public static void Details(List<Member> members)
+        public static void MemberDetails(List<Member> members)
         {
             do
             {

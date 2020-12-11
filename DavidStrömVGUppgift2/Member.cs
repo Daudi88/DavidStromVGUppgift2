@@ -63,7 +63,7 @@ namespace DavidStrömVGUppgift2
 
         //Här är en metod som beskriver vem gruppmedlemmen är och skriver ut 
         //detta till skärmen.
-        public void Describe()
+        public void DescribeMember()
         {
             string pronoun = "";
             if (gender == "Man")

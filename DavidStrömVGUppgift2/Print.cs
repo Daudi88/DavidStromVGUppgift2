@@ -93,7 +93,7 @@ namespace DavidStrömVGUppgift2
                 {
                     TextInGreen($"\tDu vill veta mer om {members[choice - 1].ToString()}.");
                     Console.Clear();
-                    members[choice - 1].Describe();
+                    members[choice - 1].DescribeMember();
                     Console.ReadKey(true);
                 }
                 //Om användaren matar in bokstäver eller bara trycker Enter 

@@ -7,72 +7,90 @@ namespace DavidStrömVGUppgift2
     class Logic
     {
         static bool exit = false;
+        static int ctr = 0;
+        private static object password;
 
         //Detta är en metod som hanterar inloggningen till programmet.
         public static void Login()
         {
             Console.Title = "Bästkusten";
-            int ctr = 0;
+
             do
             {
-                //Här körs en loop där varje tangenttryck registreras och läggs
-                //till i strängen password, men det som syns är bara asterisker.
-                string userInput = "";
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(@"         ____  _   _     _   _              _");
                 Console.WriteLine(@"        |  _ \(_) (_)   | | | |            | |");
                 Console.WriteLine(@"        | |_) | __ _ ___| |_| | ___   _ ___| |_ ___ _ __");
                 Console.WriteLine(@"        |  _ < / _` / __| __| |/ / | | / __| __/ _ \ '_ \");
                 Console.WriteLine(@"        | |_) | (_| \__ \ |_|   <| |_| \__ \ ||  __/ | | |");
                 Console.WriteLine(@"        |____/ \__,_|___/\__|_|\_\\__,_|___/\__\___|_| |_|");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\n\tVälkommen till Bästkusten!");
                 Console.Write("\tAnge lösenordet: ");
-                ConsoleKey key;
-                do
-                {
-                    //Varje knapptryck sparas i keyInfo men syns inte på skärmen.
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                    key = keyInfo.Key;
-                    if (key == ConsoleKey.Backspace && userInput.Length > 0)
-                    {
-                        //Om man trycker Backspace raderas asterisken från skärmen
-                        //och tecknet som tidigare sparats i password tas bort.
-                        Console.Write("\b \b");
-                        userInput = userInput[0..^1];
-                    }
-                    else if (!char.IsControl(keyInfo.KeyChar))
-                    {
-                        //Här skrivs en asterisk ut till skärmen och knapptrycket
-                        //sparas till password.
-                        Console.Write("*");
-                        userInput += keyInfo.KeyChar;
-                    }
-                    //loopen körs så länge man inte trycker på Enter.
-                } while (key != ConsoleKey.Enter);
+                string password = Password();
+                ComparePasswords(password);
 
-                string password = "Bästkusten";
-                if (userInput == password)
+            } while (!exit);
+        }
+
+        //Här är en metod som låter användaren skriva in ett lösenord.
+        static string Password()
+        {
+            string password = "";
+            ConsoleKey key;
+            do
+            {
+                //Varje knapptryck sparas i keyInfo men syns inte på skärmen.
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                key = keyInfo.Key;
+                if (key == ConsoleKey.Backspace && password.Length > 0)
                 {
-                    Print.TextInGreen("\n\tKorrekt! Du angav rätt kod!");
-                    Run();
+                    //Om man trycker Backspace raderas asterisken från skärmen
+                    //och tecknet som tidigare sparats i password tas bort.
+                    Console.Write("\b \b");
+                    password = password[0..^1];
                 }
-                else if (userInput == "")
+                else if (!char.IsControl(keyInfo.KeyChar))
                 {
-                    Print.TextInGreen("Tips, lösenordet är basgruppens namn");
-                    Console.Clear();
+                    //Här skrivs en asterisk ut till skärmen och knapptrycket
+                    //sparas till password.
+                    Console.Write("*");
+                    password += keyInfo.KeyChar;
+                }
+
+                //loopen körs så länge man inte trycker på Enter.
+            } while (key != ConsoleKey.Enter);
+
+            return password;
+        }
+
+        static void ComparePasswords(string password)
+        {
+            string storedPassword = "Bästkusten";
+            if (password == storedPassword)
+            {
+                Print.TextInGreen("\n\tKorrekt! Du angav rätt kod!");
+                Run();
+            }
+            else if (password == "")
+            {
+                Print.TextInGreen("Tips, lösenordet är basgruppens namn");
+                Console.Clear();
+            }
+            else
+            {
+                ctr++;
+                if (ctr > 2)
+                {
+                    Print.TextInRed("\n\tDu har matat in fel lösenord för många gånger.\n");
+                    ExitProgram();
                 }
                 else
                 {
-                    ctr++;
-                    if (ctr > 2)
-                    {
-                        Print.TextInRed("\n\tDu har matat in fel lösenord för många gånger.\n");
-                        ExitProgram();
-                    }
-                    else
-                        Print.TextInRed("\n\tFel kod! Försök igen...");
-                    Console.Clear();
+                    Print.TextInRed("\n\tFel kod! Försök igen...");
                 }
-            } while (!exit);
+                Console.Clear();
+            }
         }
 
         //Här är en metod som styr hela programmet när man väl loggat in.
@@ -105,9 +123,10 @@ namespace DavidStrömVGUppgift2
                         ExitProgram();
                         break;
                     default:
-                        Print.TextInRed("\tDu måste vålja mellan 1-4...");
+                        Print.TextInRed("\tDu måste ange en siffra mellan 1-4...");
                         break;
                 }
+
             } while (!exit);
         }
 

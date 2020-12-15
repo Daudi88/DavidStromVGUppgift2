@@ -5,12 +5,13 @@ using System.Threading;
 
 namespace DavidStrömVGUppgift2
 {
-    class Print
+    static class Print
     {
         //Här är en metod som skriver ut menyn till skärmen.
         public static void MainMenu()
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(@"         _    _                       _");
             Console.WriteLine(@"        | |  | |                     | |");
             Console.WriteLine(@"        | |__| |_   ___   ___   _  __| |_ __ ___   ___ _ __  _   _");
@@ -18,7 +19,9 @@ namespace DavidStrömVGUppgift2
             Console.WriteLine(@"        | |  | | |_| |\ V /| |_| | (_| | | | | | |  __/ | | | |_| |");
             Console.WriteLine(@"        |_|  |_|\__,_| \_/  \__,_|\__,_|_| |_| |_|\___|_| |_|\__, |");
             Console.WriteLine(@"                                                              __/ |");
-            Console.WriteLine(@"        1. Visa medlemmarna i gruppen.                       |___/ ");
+            Console.WriteLine(@"                                                             |___/ ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\t1. Visa medlemmarna i gruppen.");
             Console.WriteLine("\t2. Visa detaljer om en specifik gruppmedlem.");
             Console.WriteLine("\t3. Lägg till en person i gruppen.");
             Console.WriteLine("\t4. Ändra en person i gruppen.");
@@ -32,12 +35,14 @@ namespace DavidStrömVGUppgift2
         public static void ShowMembers(List<Member> members)
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(@"         __  __          _ _");
             Console.WriteLine(@"        |  \/  |        | | |");
             Console.WriteLine(@"        | \  / | ___  __| | | ___ _ __ ___  _ __ ___   __ _ _ __");
             Console.WriteLine(@"        | |\/| |/ _ \/ _` | |/ _ \ '_ ` _ \| '_ ` _ \ / _` | '__|");
             Console.WriteLine(@"        | |  | |  __/ (_| | |  __/ | | | | | | | | | | (_| | |");
             Console.WriteLine(@"        |_|  |_|\___|\__,_|_|\___|_| |_| |_|_| |_| |_|\__,_|_|");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
             int ctr = 0;
             Console.Write("\t");
@@ -51,11 +56,17 @@ namespace DavidStrömVGUppgift2
                 //Här körs en if-sats för att se till att namnen skrivs ut på 
                 //ett snyggt sätt och att ett &-tecken skrivs ut innan sista namnet.
                 if (i + 2 == members.Count)
+                {
                     Console.Write(" & ");
+                }
                 else if (i + 1 == members.Count)
+                {
                     Console.WriteLine(".");
+                }
                 else
+                {
                     Console.Write(", ");
+                }
                 ctr++;
 
                 //Här bryter vi till en ny rad efter att halva gruppens
@@ -77,6 +88,7 @@ namespace DavidStrömVGUppgift2
             do
             {
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(@"         _____       _        _ _ ");
                 Console.WriteLine(@"        |  __ \     | |      | (_)");
                 Console.WriteLine(@"        | |  | | ___| |_ __ _| |_  ___ _ __");
@@ -85,13 +97,14 @@ namespace DavidStrömVGUppgift2
                 Console.WriteLine(@"        |_____/ \___|\__\__,_|_| |\___|_|");
                 Console.WriteLine(@"                              _/ |");
                 Console.WriteLine(@"                             |__/");
+                Console.ForegroundColor = ConsoleColor.White;
                 ListOfMembers(members);
                 Console.WriteLine("\n\tTryck bara Enter för att avbryta och återgå till huvudmenyn...");
                 Console.Write("\tVilken gruppmedlem vill du veta mer om? ");
                 int.TryParse(Console.ReadLine(), out int choice);
                 if (choice > 0 && choice <= members.Count)
                 {
-                    TextInGreen($"\tDu vill veta mer om {members[choice - 1].ToString()}.");
+                    TextInGreen($"\tDu vill veta mer om {members[choice - 1]}.");
                     Console.Clear();
                     members[choice - 1].DescribeMember();
                     Console.ReadKey(true);
@@ -99,11 +112,16 @@ namespace DavidStrömVGUppgift2
                 //Om användaren matar in bokstäver eller bara trycker Enter 
                 //kommer UserChoice returnera 0 och då bryter vi oss ut ur loopen.
                 else if (choice == 0)
+                {
                     break;
+                }
                 //Om användaren matar in en siffra som ligger utanför ramen av 
                 //listan skrivs ett felmeddelande ut
                 else
-                    Print.TextInRed($"\n\tDu måste ange en siffra mellan 1 och {members.Count}...");
+                {
+                    TextInRed($"\n\tDu måste ange en siffra mellan 1 och {members.Count}...");
+                }
+
             } while (true);
         }
 
@@ -111,7 +129,9 @@ namespace DavidStrömVGUppgift2
         {
             int ctr = 1;
             foreach (var member in members)
-                Console.WriteLine($"\t{ctr++}. {member.ToString()}");
+            {
+                Console.WriteLine($"\t{ctr++}. {member}");
+            }
         }
 
         //Här är en metod som skriver utt ett meddelande i grön text till skärmen.

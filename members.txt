@@ -1,0 +1,12 @@
+Benny, Christensen, 194, 38, Gaming, Älgkebab, Röd, Det är roligt, Östersund, Östersund, 4, Man
+Cecilia, Nilsson, 163, 29, The Sims, Risotto, Gul, Kreativitet, Norrköping, Norrköping, 1, Kvinna
+David, Ström, 183, 32, Gracie Jiu-Jitsu, Tacos, Blå, Problemlösning, Norrtälje, Göteborg, 1, Man
+Elin, Bjurenhed, 170, 31, Hästar, Sushi, Röd, Personliga utveckling, Knivsta, Karlskoga, 2, Kvinna
+Håkan, Eriksson, 187, 44, Gaming, Pizza, Candy apple red, Vill arbeta med datasäkerhet, Knivsta, Knivsta, 1, Man
+Ivo, Nazlic, 174, 42, Fotografi, Scampi, Svart, Kreativitet, Uppsala, Split, 1, Man
+Jeremy, Matthiessen, 181, 19, Gaming, Älggryta, Teal, Jobb, Djurö, Köln, 1, Man
+Johan, Jangerud, 194, 34, Gaming, Tacos, Blå, Trygg framtid, Mariefred, Mariefred, 2, Man
+Mostafa, Shubber, 174, 33, Träning, Oxfile, Svart, Tycker om att koda och lösa problem, Stockholm, Stockholm, 4, Man
+Oscar, Möller, 185, 26, Fotboll, Lasagne, Blå, Jobb, Stockholm, Stockholm, 1, Man
+Sanjin, Ajanic, 179, 30, Fotboll, Pizza, Blå, Jobb, Norrköping, Mostar, 2, Man
+Svante, Joelsson, 182, 36, Illustrera, Pasta al fungi, Blå, Mer pengar, Strömstad, Strömstad, 2, Man

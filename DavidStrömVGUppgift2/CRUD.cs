@@ -7,7 +7,7 @@ namespace DavidStrömVGUppgift2
 {
     static class CRUD
     {
-        static string path = Path.Combine(Environment.CurrentDirectory, "members.txt");
+        static string path = Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\members.txt");
         static List<string> lines = new List<string>();
 
         //Här är en metod som läser in alla gruppmedlemmar från en textfil.
